@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @FeignClient("authservice")
 public interface AuthClient {
 
-    @PostMapping("/login")
-    @ResponseBody
-    public AuthResponse login(@RequestParam("username") String username,
-                              @RequestParam("password") String password);
-
 
     @GetMapping("/verify")
     public AuthResponse verify(@RequestParam("token") String token,

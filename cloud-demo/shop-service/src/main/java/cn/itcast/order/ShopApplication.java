@@ -13,10 +13,10 @@ import org.springframework.web.client.RestTemplate;
 @MapperScan("cn.itcast.order.mapper")
 @SpringBootApplication
 @EnableFeignClients(clients = UserClient.class,defaultConfiguration = DefaultFeignConfiguration.class)
-public class OrderApplication {
+public class ShopApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderApplication.class, args);
+        SpringApplication.run(ShopApplication.class, args);
     }
 
     /**
@@ -28,8 +28,5 @@ public class OrderApplication {
         return new RestTemplate();
     }
 
-   /* @Bean
-    public IRule randomRule() {
-        return new RandomRule();
-    }*/
+
 }
