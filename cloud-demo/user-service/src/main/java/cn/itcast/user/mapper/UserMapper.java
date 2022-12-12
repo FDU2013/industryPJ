@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper {
     
-    @Select("select * from tb_user where id = #{id}")
+    @Select("select * from account_entity where id = #{id}")
     User findById(@Param("id") Long id);
 }

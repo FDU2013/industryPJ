@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public interface AuthClient {
 
 
-    @GetMapping("/verify")
+    @GetMapping("/auth/verify")
     public AuthResponse verify(@RequestParam("token") String token,
                                @RequestParam("username") String username);
 
-    @PostMapping("/refresh")
+    @PostMapping("/auth/refresh")
     @ResponseBody
     public AuthResponse refresh(@RequestParam("refresh") String refresh);
 

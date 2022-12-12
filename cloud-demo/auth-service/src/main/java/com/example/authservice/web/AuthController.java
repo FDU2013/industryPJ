@@ -1,5 +1,7 @@
 package com.example.authservice.web;
 
+import com.example.authservice.common.LoginData;
+import com.example.authservice.common.Result;
 import com.example.authservice.pojo.Account;
 import com.example.authservice.pojo.AccountEntity;
 import com.example.authservice.pojo.AuthResponse;
@@ -8,13 +10,13 @@ import com.example.authservice.service.AccountService;
 import com.example.authservice.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+
+@RestController
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private JwtService jwtService;
@@ -22,24 +24,28 @@ public class AuthController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private AccountService accountService;
+
     @PostMapping("/login")
     @ResponseBody
-    public AuthResponse login(@RequestParam String username,
-                              @RequestParam String password) {
+    public Result login(@RequestBody LoginData loginData) {
         AccountEntity accountEntity=null;
         //验证username + password
+        //TODO
+        if(loginData!=null){
+            return Result.succ(new Account("admin","admin","aa","aa"),"登录成功");
+        }
+
         try{
-            AccountService.login(username,password);
+            accountEntity = accountService.login(loginData.getUsername(),loginData.getPassword());
         }catch (Exception e){
-            return AuthResponse.builder()
-                    .account(null)
-                    .code(AuthResponseCode.USER_NOT_FOUND)
-                    .msg("登录失败")
-                    .build();
+            e.printStackTrace();
+            return Result.fail(AuthResponseCode.INCORRECT_PWD.intValue(),"登录失败");
         }
 
         Account account = Account.builder()
-                .username(username)
+                .username(loginData.getUsername())
                 .role(accountEntity.getRole())
                 .build();
 
@@ -49,11 +55,7 @@ public class AuthController {
 
         redisTemplate.opsForValue().set(account.getRefreshToken(), account);
 
-        return AuthResponse.builder()
-                .account(account)
-                .code(AuthResponseCode.SUCCESS)
-                .msg("登录成功")
-                .build();
+        return Result.succ(account,"登录成功");
     }
 
     @PostMapping("/refresh")
