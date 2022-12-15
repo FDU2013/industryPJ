@@ -6,11 +6,14 @@ spring:
     username: root
     password: 1234zjx
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
 
-mybatis:
-  type-aliases-package: cn.itcast.user.pojo
-  configuration:
-    map-underscore-to-camel-case: true
 logging:
   level:
     cn.itcast: debug

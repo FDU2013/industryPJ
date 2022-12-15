@@ -1,4 +1,4 @@
-package com.example.authservice.common;
+package cn.itcast.feign.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

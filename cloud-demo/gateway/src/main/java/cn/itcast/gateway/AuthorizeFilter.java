@@ -35,7 +35,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         HttpHeaders headers = request.getHeaders();
         String url = request.getURI().getPath();
         String token = headers.getFirst("auth");
-        String username = headers.getFirst("username");
+        String ID = headers.getFirst("ID");
 
         //跳过不需要验证的路径
         if(null != skipAuthUrls&& Arrays.asList(skipAuthUrls).contains(url)){
@@ -49,7 +49,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         }
 
         //验证一下token是否有效
-        AuthResponse resp = authClient.verify(token,username);
+        AuthResponse resp = authClient.verify(token,ID);
         if(!Objects.equals(resp.getCode(), AuthResponseCode.SUCCESS)){
             exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
             return exchange.getResponse().setComplete();

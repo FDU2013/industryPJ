@@ -11,14 +11,10 @@ spring:
   cloud:
     nacos:
       server-addr: localhost:8848 # nacos服务地址
-  redis:
-    # redis服务器地址（默认为loaclhost）
-    host: localhost
-    # redis端口（默认为6379）
-    port: 6379
-    # redis访问密码（默认为空）
-    password:
-mybatis:
-  type-aliases-package: cn.itcast.user.pojo
-  configuration:
-    map-underscore-to-camel-case: true
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true

@@ -33,7 +33,7 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
         <mysql.version>8.0.28</mysql.version>
-        <mybatis.version>2.1.1</mybatis.version>
+<!--        <mybatis.version>2.1.1</mybatis.version>-->
     </properties>
 
     <dependencyManagement>
@@ -61,10 +61,16 @@
                 <version>${mysql.version}</version>
             </dependency>
             <!--mybatis-->
+<!--            <dependency>-->
+<!--                <groupId>org.mybatis.spring.boot</groupId>-->
+<!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--                <version>${mybatis.version}</version>-->
+<!--            </dependency>-->
+            <!--JPA-->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>2.6.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

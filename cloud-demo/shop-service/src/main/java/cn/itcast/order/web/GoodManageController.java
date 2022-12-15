@@ -9,28 +9,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
-public class OrderController {
+public class GoodManageController {
 
-    @PostMapping("/searchUndeliverOrder")
-    public Result searchUndeliverOrder(@PathVariable("id") Long id) {
 
-        return Result.fail(300,"300");
-    }
 
-    @PostMapping("/deliver")
-    public Result deliver(@PathVariable("id") Long id) {
+    @PostMapping("/updateGood")
+    public Result updateGood(@PathVariable("id") Long id) {
 
         return Result.fail(300,"300");
     }
 
-    @PostMapping("/searchUnreceiveOrder")
-    public Result searchUnreceiveOrder(@PathVariable("id") Long id) {
+    @PostMapping("/addGood")
+    public Result addGood(@PathVariable("id") Long id) {
 
         return Result.fail(300,"300");
     }
 
-    @PostMapping("/searchFinishOrder")
-    public Result searchFinishOrder(@PathVariable("id") Long id) {
+    @PostMapping("/searchGood")
+    public Result searchGood(@PathVariable("id") Long id) {
 
         return Result.fail(300,"300");
     }

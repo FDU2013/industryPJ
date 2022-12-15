@@ -10,12 +10,13 @@ spring:
     sharding:
       default-database-strategy:
       tables:
-#      discovery:
-#        cluster-name: HZ
-mybatis:
-  type-aliases-package: cn.itcast.user.pojo
-  configuration:
-    map-underscore-to-camel-case: true
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
 logging:
   level:
     cn.itcast: debug

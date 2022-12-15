@@ -1,48 +1,35 @@
 package cn.itcast.user.web;
 
-import cn.itcast.user.config.PatternProperties;
+
+import cn.itcast.feign.common.Result;
 import cn.itcast.user.pojo.User;
 import cn.itcast.user.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import javax.servlet.http.HttpServletRequest;
 
-@Slf4j
+
 @RestController
 @RequestMapping("/user")
-// @RefreshScope
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    // @Value("${pattern.dateformat}")
-    // private String dateformat;
 
-    @Autowired
-    private PatternProperties properties;
 
-    @GetMapping("prop")
-    public PatternProperties properties(){
-        return properties;
+    @PostMapping("/info")
+    public Result info(HttpServletRequest request) {
+        //TODO
+        return Result.fail(300,"300");
     }
 
-    @GetMapping("now")
-    public String now(){
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(properties.getDateformat()));
+    @PostMapping("/updateInfo")
+    public Result updateInfo(HttpServletRequest request) {
+        //TODO
+        return Result.fail(300,"300");
     }
 
-    /**
-     * 路径： /user/110
-     *
-     * @param id 用户id
-     * @return 用户
-     */
-    @GetMapping("/{id}")
-    public User queryById(@PathVariable("id") Long id) {
-        return userService.queryById(id);
-    }
+
 }

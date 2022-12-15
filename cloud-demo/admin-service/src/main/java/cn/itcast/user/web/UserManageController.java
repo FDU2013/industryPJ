@@ -1,4 +1,4 @@
-package cn.itcast.order.web;
+package cn.itcast.user.web;
 
 
 import cn.itcast.feign.common.Result;
@@ -9,30 +9,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
-public class OrderController {
+public class UserManageController {
 
-    @PostMapping("/searchUndeliverOrder")
-    public Result searchUndeliverOrder(@PathVariable("id") Long id) {
-
-        return Result.fail(300,"300");
-    }
-
-    @PostMapping("/deliver")
-    public Result deliver(@PathVariable("id") Long id) {
+    @PostMapping("/addUser")
+    public Result addUser(@PathVariable("id") Long id) {
 
         return Result.fail(300,"300");
     }
 
-    @PostMapping("/searchUnreceiveOrder")
-    public Result searchUnreceiveOrder(@PathVariable("id") Long id) {
+    @PostMapping("/updateUser")
+    public Result updateUser(@PathVariable("id") Long id) {
 
         return Result.fail(300,"300");
     }
 
-    @PostMapping("/searchFinishOrder")
-    public Result searchFinishOrder(@PathVariable("id") Long id) {
+    @PostMapping("/getAllUser")
+    public Result getAllUser(@PathVariable("id") Long id) {
 
         return Result.fail(300,"300");
     }
+
+    @PostMapping("/addMoney")
+    public Result addMoney(@PathVariable("id") Long id) {
+
+        return Result.fail(300,"300");
+    }
+
 
 }
