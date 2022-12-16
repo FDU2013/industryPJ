@@ -33,7 +33,7 @@ public class InfoServiceImpl implements InfoService {
 
     @Override
     public void addMedium(String name) throws Exception {
-        if(mediumRepository.findByName(name) != null) {
+        if(mediumRepository.findByType(name) != null) {
             throw new Exception("介质已存在");
         }
         mediumRepository.save(new Medium(name));
@@ -48,7 +48,75 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    public List<Publisher> getAllPublisherA() {
+    public void updatePublisher(String oldName, String newName, String detailsToUpdate) throws Exception {
+        Publisher publisher = publisherRepository.findByName(oldName);
+        if(publisher == null){
+            throw new Exception("该出版社不存在");
+        }
+
+        if(newName == null || newName.equals("")){
+            if(detailsToUpdate != null) {
+                publisher.setDetails(detailsToUpdate);
+                publisherRepository.save(publisher);
+            }
+            return;
+        }
+        if(detailsToUpdate == null){
+            detailsToUpdate = publisher.getDetails();
+        }
+        publisherRepository.save(new Publisher(newName, detailsToUpdate));
+        publisherRepository.delete(publisher);
+    }
+
+    @Override
+    public void updateMedium(String oldType, String newType) throws Exception {
+        Medium medium = mediumRepository.findByType(oldType);
+        if(medium == null){
+            throw new Exception("该介质不存在");
+        }
+        mediumRepository.save(new Medium(newType));
+        mediumRepository.delete(medium);
+    }
+
+    @Override
+    public void updateGoodsTag(String oldName, String newName) throws Exception {
+        GoodsTag goodsTag = goodsTagRepository.findByName(oldName);
+        if(goodsTag == null){
+            throw new Exception("该介质不存在");
+        }
+        goodsTagRepository.save(new GoodsTag(newName));
+        goodsTagRepository.delete(goodsTag);
+    }
+
+    @Override
+    public void deletePublisher(String name) throws Exception {
+        Publisher publisher = publisherRepository.findByName(name);
+        if(publisher == null){
+            throw new Exception("该出版社不存在");
+        }
+        publisherRepository.delete(publisher);
+    }
+
+    @Override
+    public void deleteMedium(String type) throws Exception {
+        Medium medium = mediumRepository.findByType(type);
+        if(medium == null){
+            throw new Exception("该介质不存在");
+        }
+        mediumRepository.delete(medium);
+    }
+
+    @Override
+    public void deleteGoodsTag(String name) throws Exception {
+        GoodsTag goodsTag = goodsTagRepository.findByName(name);
+        if(goodsTag == null){
+            throw new Exception("该标签/类型不存在");
+        }
+        goodsTagRepository.delete(goodsTag);
+    }
+
+    @Override
+    public List<Publisher> getAllPublisher() {
         return publisherRepository.findAll();
     }
 

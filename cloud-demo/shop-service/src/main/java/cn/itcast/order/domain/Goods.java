@@ -1,7 +1,5 @@
 package cn.itcast.order.domain;
 
-import cn.itcast.order.common.MediumType;
-import cn.itcast.order.common.TagType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +14,8 @@ import java.math.BigDecimal;
 @Table(name = "goods")
 public class Goods {
     @Id
-    @Column(name = "id", unique = true)
-    private String id;
+    @Column(name = "id", nullable = false)
+    private String goodsId;
     @Column(name = "name")
     private String name;
     @Column(name = "publisher")

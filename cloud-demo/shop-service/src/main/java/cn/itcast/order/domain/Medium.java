@@ -1,6 +1,5 @@
 package cn.itcast.order.domain;
 
-import cn.itcast.order.common.MediumType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

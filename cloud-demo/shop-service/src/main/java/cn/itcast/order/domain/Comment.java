@@ -16,9 +16,10 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Integer commentId;
     @Column(name = "id")
     private String content;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private CommentStatus status;
     @Column(name = "stars")

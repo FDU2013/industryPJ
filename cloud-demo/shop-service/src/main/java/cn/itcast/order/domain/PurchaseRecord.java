@@ -14,10 +14,10 @@ import javax.persistence.*;
 public class PurchaseRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
-    @Column(name = "buyer_name")
-    private String buyerName;
+    @Column(name = "record_id")
+    private Integer recordId;
+    @Column(name = "buyer_id")
+    private String buyerId;
     @Column(name = "goods_id")
     private String goodsId;
 
