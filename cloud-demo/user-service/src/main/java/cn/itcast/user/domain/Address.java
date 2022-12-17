@@ -17,16 +17,18 @@ public class Address {
     @Column(name = "id")
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user", nullable = false)
     private User user;
     @Column(name = "name")
     private String name;
     @Column(name = "phone")
     private String phone;
-    @Column(name = "province")
-    private String province;
-    @Column(name = "city")
-    private String city;
+//    @Column(name = "province")
+//    private String province;
+//    @Column(name = "city")
+//    private String city;
     @Column(name = "details")
     private String details;
+    @Column(name = "description")
+    private String description;
 }

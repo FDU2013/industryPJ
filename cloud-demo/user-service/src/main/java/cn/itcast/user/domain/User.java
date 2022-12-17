@@ -18,14 +18,16 @@ public class User {
     private String userId;
     @Column(name = "account")
     private String account;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "email")
     private String email;
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Address> address;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ShoppingCart> cart;
 }

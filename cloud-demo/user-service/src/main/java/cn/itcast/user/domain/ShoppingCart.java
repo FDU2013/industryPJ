@@ -17,10 +17,10 @@ public class ShoppingCart {
     @Column(name = "id")
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user", nullable = false)
     private User user;
     @Column(name = "goods_id")
     private String goodsId;
     @Column(name = "goods_num")
-    private String goodsNum;
+    private Integer goodsNum;
 }
