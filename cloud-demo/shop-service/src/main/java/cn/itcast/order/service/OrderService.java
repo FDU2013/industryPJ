@@ -11,5 +11,6 @@ public interface OrderService {
     List<Order> findOrderByUserAndStatus(String userId, OrderStatus status);
     List<PurchaseRecord> findRecordByOrder(Integer orderId);
     void deliverGoodsOfOrder(Integer orderId);
+    void comment(Integer recordId, String content, Integer stars);
 
 }

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Table(name = "goods")
 public class Goods {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "goods_id", nullable = false)
     private String goodsId;
     @Column(name = "name")
     private String name;

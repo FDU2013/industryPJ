@@ -16,8 +16,8 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer commentId;
-    @Column(name = "id")
+    private Integer id;
+    @Column(name = "content")
     private String content;
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

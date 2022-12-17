@@ -14,13 +14,18 @@ import java.util.List;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Integer orderId;
-
-    @Column(name = "buyer_id")
-    private String buyerId;
-
+    @Column(name = "user_id")
+    private String userId;
     @Column(name = "account")
     private String account;
+
+    @Column(name = "email")
+    private String email;
+    @Column(name = "phone")
+    private String phone;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Address> address;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ShoppingCart> cart;
 }

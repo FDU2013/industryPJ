@@ -27,4 +27,9 @@ public class OrderServiceImpl implements OrderService {
     public void deliverGoodsOfOrder(Integer orderId) {
 
     }
+
+    @Override
+    public void comment(Integer recordId, String content, Integer stars) {
+
+    }
 }
