@@ -65,6 +65,9 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         if(url.startsWith("/shop")){
             if(resp.getAccount().getRole().equals("admin"))chain.filter(exchange);
         }
+        if(url.startsWith("/money")){
+            if(resp.getAccount().getRole().equals("admin"))chain.filter(exchange);
+        }
         exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
         return exchange.getResponse().setComplete();
 

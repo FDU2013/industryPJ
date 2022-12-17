@@ -12,6 +12,5 @@ public interface AuthClient {
     @GetMapping("/auth/verify")
     public AuthResponse verify(@RequestParam("token") String token,
                                @RequestParam("ID") String ID);
-    @PostMapping("/auth/addUser")
-    public boolean addUser(@RequestBody LoginData loginData);
+
 }

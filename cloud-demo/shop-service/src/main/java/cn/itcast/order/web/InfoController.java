@@ -46,7 +46,7 @@ public class InfoController {
     public Result deletePublisher(@RequestBody String name) {
         try{
             infoService.deletePublisher(name);
-            return Result.succ(name,"信息修改成功");
+            return Result.succ(name,"删除成功");
         }catch (Exception e){
             e.printStackTrace();
             return Result.fail(300,e.getMessage());

@@ -10,8 +10,6 @@ import lombok.Data;
 public class Account {
     private String username;
     private String role;
-
     private String token;
-
     private String refreshToken;
 }

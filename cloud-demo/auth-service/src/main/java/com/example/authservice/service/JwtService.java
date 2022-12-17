@@ -15,7 +15,7 @@ public class JwtService {
     private static final String ISSUER = "yao";
 
 
-    private static final long TOKEN_EXP_TIME = 60000;
+    private static final long TOKEN_EXP_TIME = 6000000;
     private static final String USER_NAME = "username";
 
     /**

@@ -81,7 +81,9 @@ public class AuthController {
     @GetMapping("/verify")
     public AuthResponse verify(@RequestParam String token,
                                @RequestParam String ID) {
+        System.out.println("开始认证");
         boolean success = jwtService.verify(token, ID);
+        System.out.println(success?"成功" : "失败");
         return AuthResponse.builder()
                 // TODO 此处最好用invalid token之类的错误信息
                 .code(success ? AuthResponseCode.SUCCESS : AuthResponseCode.USER_NOT_FOUND)
