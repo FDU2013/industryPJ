@@ -25,5 +25,9 @@ spring:
             uri: lb://authservice
             predicates:
               - Path=/auth/**
+        - id: shop-service
+            uri: lb://shopservice
+            predicates:
+              - Path=/shop/**
 #      default-filters:
 #        - AddRequestHeader=Truth,Itcast is freaking awesome!

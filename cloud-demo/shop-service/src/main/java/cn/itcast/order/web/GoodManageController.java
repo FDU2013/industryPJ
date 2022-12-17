@@ -2,33 +2,60 @@ package cn.itcast.order.web;
 
 
 import cn.itcast.feign.common.Result;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import cn.itcast.order.common.GoodSearchData;
+import cn.itcast.order.common.MyPage;
+import cn.itcast.order.domain.Goods;
+import cn.itcast.order.service.GoodService;
+import cn.itcast.order.util.MyPageTool;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/shop")
 public class GoodManageController {
-
+    @Autowired
+    private GoodService goodService;
 
 
     @PostMapping("/updateGood")
-    public Result updateGood(@PathVariable("id") Long id) {
+    public Result updateGood(@RequestBody Goods good) {
+        try{
+            goodService.updateGoods(good);
+            return Result.succ(good.getName(),"添加成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(300,e.getMessage());
+        }
 
-        return Result.fail(300,"300");
     }
 
     @PostMapping("/addGood")
-    public Result addGood(@PathVariable("id") Long id) {
-
-        return Result.fail(300,"300");
+    public Result addGood(@RequestBody Goods good) {
+        try{
+            goodService.addGoods(good);
+            return Result.succ(good.getName(),"添加成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(300,e.getMessage());
+        }
     }
 
     @PostMapping("/searchGood")
-    public Result searchGood(@PathVariable("id") Long id) {
-
-        return Result.fail(300,"300");
+    public Result searchGood(@RequestBody GoodSearchData searchData) {
+        try{
+            List<Goods> goods = goodService.searchGoodsByMediumAndTag(
+                    searchData.getMedium(),
+                    searchData.getTag(),
+                    searchData.getSearch()
+            );
+            MyPage<Goods> goodPage = MyPageTool.getPage(goods,searchData.getPageSize(),searchData.getPageNum());
+            return Result.succ(goodPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(302,e.getMessage());
+        }
     }
 
 }
