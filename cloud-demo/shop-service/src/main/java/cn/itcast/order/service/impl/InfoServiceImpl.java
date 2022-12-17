@@ -48,24 +48,15 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    public void updatePublisher(String oldName, String newName, String detailsToUpdate) throws Exception {
-        Publisher publisher = publisherRepository.findByName(oldName);
+    public void updatePublisher(String name, String detailsToUpdate) throws Exception {
+        Publisher publisher = publisherRepository.findByName(name);
         if(publisher == null){
             throw new Exception("该出版社不存在");
         }
-
-        if(newName == null || newName.equals("")){
-            if(detailsToUpdate != null) {
-                publisher.setDetails(detailsToUpdate);
-                publisherRepository.save(publisher);
-            }
-            return;
+        if(detailsToUpdate != null) {
+            publisher.setDetails(detailsToUpdate);
+            publisherRepository.save(publisher);
         }
-        if(detailsToUpdate == null){
-            detailsToUpdate = publisher.getDetails();
-        }
-        publisherRepository.save(new Publisher(newName, detailsToUpdate));
-        publisherRepository.delete(publisher);
     }
 
     @Override

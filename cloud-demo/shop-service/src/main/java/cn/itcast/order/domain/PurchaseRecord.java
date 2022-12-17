@@ -20,7 +20,10 @@ public class PurchaseRecord {
     private String buyerId;
     @Column(name = "goods_id")
     private String goodsId;
-
+    @Column(name = "goods_num")
+    private String goodsNum;
+    @Column(name = "total+price")
+    private String totalPrice;
     @ManyToOne
     @JoinColumn(name = "order")
     private Order order;

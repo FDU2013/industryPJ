@@ -11,7 +11,7 @@ public interface InfoService {
     void addPublisher(String name, String details) throws Exception;
     void addMedium(String type) throws Exception;
     void addGoodsTag(String name) throws Exception;
-    void updatePublisher(String oldName, String newName, String detailsToUpdate) throws Exception;
+    void updatePublisher(String name, String detailsToUpdate) throws Exception;
     //detailsToUpdate==null/""时不更新该属性
     void updateMedium(String oldType, String newType) throws Exception;
     void updateGoodsTag(String oldName, String newName) throws Exception;
