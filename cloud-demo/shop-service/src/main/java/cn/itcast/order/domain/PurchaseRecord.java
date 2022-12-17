@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class PurchaseRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
     @Column(name = "buyer_id")
     private String buyerId;
@@ -22,10 +21,10 @@ public class PurchaseRecord {
     private String goodsId;
     @Column(name = "goods_num")
     private String goodsNum;
-    @Column(name = "total+price")
+    @Column(name = "total_price")
     private String totalPrice;
     @ManyToOne
-    @JoinColumn(name = "order")
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @OneToOne(cascade = CascadeType.ALL)
