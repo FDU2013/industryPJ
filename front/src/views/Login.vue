@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      电子商城
+      <Header/>
     </div>
     <div class="login-main">
 <!--      输入账号和密码的地方-->
@@ -12,7 +12,7 @@
           </div>
           <el-form :model="login_data" size="normal" :rules="rules">
             <el-form-item prop="ID">
-              <el-input prefix-icon="User" v-model="login_data.number"/>
+              <el-input prefix-icon="User" v-model="login_data.ID"/>
             </el-form-item>
             <el-form-item prop="password">
               <el-input show-password prefix-icon="Lock" v-model="login_data.password" />
@@ -43,6 +43,8 @@ import {admin_routes} from "@/router";
 import {student_routes} from "@/router";
 import {teacher_routes} from "@/router";
 import router from "@/router";
+import axios from 'axios'
+import Header from "@/components/Header";
 
 function add_routes () {
   var cache = [];
@@ -60,6 +62,7 @@ function add_routes () {
 
 export default {
   name: "Login",
+  components: {Header},
   data() {
     return {
       login_data: {
@@ -81,14 +84,14 @@ export default {
       router.push('/register')
     },
     login: function (){
-      request.post("localhost:10010/auth/login", this.login_data).then(res => {
+      request.post("/auth/login", this.login_data).then(res => {
+        console.log(res.data.code)
         if (res.data.code === 200) {
           this.$message({
             type: "success",
             message: res.data.msg
           })
           sessionStorage.setItem("user", JSON.stringify(res.data.data))
-
           if (res.data.data.role === "admin") {
             router.addRoute(admin_routes)
             add_routes()
@@ -117,7 +120,6 @@ export default {
           }
         }
         else {
-
           this.$message({
             type: "error",
             message: res.data.msg
