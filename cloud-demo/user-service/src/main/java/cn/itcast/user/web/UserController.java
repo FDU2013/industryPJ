@@ -2,7 +2,6 @@ package cn.itcast.user.web;
 
 
 import cn.itcast.feign.common.Result;
-import cn.itcast.user.pojo.User;
 import cn.itcast.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
