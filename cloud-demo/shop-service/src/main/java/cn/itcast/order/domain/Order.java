@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -16,13 +17,13 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "buyer_id")
     private String buyerId;
 
-    @Column(name = "total_price")
-    private String totalPrice;
+    @Column(name = "total_price", precision = 10, scale = 2)
+    private BigDecimal totalPrice;
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private OrderStatus status;

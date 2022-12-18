@@ -1,5 +1,6 @@
 package cn.itcast.order.service;
 
+import cn.itcast.order.common.GoodsStatus;
 import cn.itcast.order.domain.Goods;
 
 import java.util.List;
@@ -11,9 +12,10 @@ public interface GoodService {
 
     Goods findGoodsById(String id) throws Exception;
     List<Goods> getAllGoods();
-    List<Goods> findGoodsByMedium(String medium);
-    List<Goods> findGoodsByTag(String tag);
-    List<Goods> searchGoodsByMediumAndTag(List<String> medium, List<String> tag, String search);
+    List<Goods> getAllGoodsByStatus(GoodsStatus status);
+    List<Goods> findGoodsByMediumAndStatus(String medium, GoodsStatus status);
+    List<Goods> findGoodsByTagAndStatus(String tag, GoodsStatus status);
+    List<Goods> searchGoodsByMediumAndTagAndStatus(List<String> medium, List<String> tag, String search, GoodsStatus status);
     /*medium/tag/search==null或size/值==0/"",视为忽略该查找条件
      *相当于使用sql中的select...in...
      */

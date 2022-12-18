@@ -19,4 +19,5 @@ public interface UserService {
     void deleteGoodsOfCart(String userId, String goodsId) throws Exception;
     void emptyCartOfUser(String userId) throws Exception;
     HashMap<String, Integer> getCartOfUser(String userId) throws Exception;
+    HashMap<String, Integer> purchaseInCart(String userId, List<String> goodsIdList) throws Exception;
 }

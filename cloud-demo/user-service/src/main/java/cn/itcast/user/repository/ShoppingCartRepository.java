@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Integer> {
     ShoppingCart findByUserAndGoodsId(User user, String goodsId);
+    List<ShoppingCart> findByUserAndGoodsIdIn(User user, List<String> goodsId);
     List<ShoppingCart> findByUser(User user);
     List<ShoppingCart> deleteByUser(User user);
     List<ShoppingCart> deleteByUserAndGoodsId(User user, String goodsId);

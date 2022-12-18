@@ -1,5 +1,6 @@
 package cn.itcast.order.service.impl;
 
+import cn.itcast.order.common.GoodsStatus;
 import cn.itcast.order.domain.Goods;
 import cn.itcast.order.repository.GoodsRepository;
 import cn.itcast.order.service.GoodService;
@@ -22,6 +23,7 @@ public class GoodServiceImpl implements GoodService {
         if(goodsRepository.findByGoodsId(goods.getGoodsId()) != null){
             throw new Exception("ID重复！");
         }
+        goods.setStatus(GoodsStatus.ForSale);
         goodsRepository.save(goods);
     }
 
@@ -77,29 +79,34 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public List<Goods> findGoodsByMedium(String medium) {
-        return goodsRepository.findByMedium(medium);
+    public List<Goods> getAllGoodsByStatus(GoodsStatus status) {
+        return goodsRepository.findByStatus(status);
     }
 
     @Override
-    public List<Goods> findGoodsByTag(String tag) {
-        return goodsRepository.findByTag(tag);
+    public List<Goods> findGoodsByMediumAndStatus(String medium, GoodsStatus status) {
+        return goodsRepository.findByMediumAndStatus(medium, status);
     }
 
     @Override
-    public List<Goods> searchGoodsByMediumAndTag(List<String> medium, List<String> tag, String search) {
+    public List<Goods> findGoodsByTagAndStatus(String tag, GoodsStatus status) {
+        return goodsRepository.findByTagAndStatus(tag, status);
+    }
+
+    @Override
+    public List<Goods> searchGoodsByMediumAndTagAndStatus(List<String> medium, List<String> tag, String search, GoodsStatus status) {
         List<Goods> temp;
         if(medium == null || medium.size() == 0){
             if(tag == null || tag.size() == 0){
                 temp = goodsRepository.findAll();
             } else {
-                temp = goodsRepository.findByTagIn(tag);
+                temp = goodsRepository.findByTagInAndStatus(tag, status);
             }
         } else {
           if(tag == null || tag.size() == 0){
-              temp = goodsRepository.findByMediumIn(medium);
+              temp = goodsRepository.findByMediumInAndStatus(medium, status);
           } else {
-              temp = goodsRepository.findByMediumInAndTagIn(medium, tag);
+              temp = goodsRepository.findByMediumInAndTagInAndStatus(medium, tag, status);
           }
         }
         if(search == null || search.equals("")){

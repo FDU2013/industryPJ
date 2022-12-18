@@ -182,4 +182,19 @@ public class UserServiceImpl implements UserService {
         return res;
     }
 
+    @Override
+    public HashMap<String, Integer> purchaseInCart(String userId, List<String> goodsIdList) throws Exception {
+        User user = userRepository.findByUserId(userId);
+        if(user == null){
+            throw new Exception("用户不存在");
+        }
+        List<ShoppingCart> carts = shoppingCartRepository.findByUserAndGoodsIdIn(user, goodsIdList);
+        HashMap<String, Integer> res = new HashMap<>();
+        for(ShoppingCart cart:carts){
+            res.put(cart.getGoodsId(), cart.getGoodsNum());
+            shoppingCartRepository.delete(cart);
+        }
+        return res;
+    }
+
 }

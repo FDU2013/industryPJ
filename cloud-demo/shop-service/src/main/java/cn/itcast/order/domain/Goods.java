@@ -1,5 +1,6 @@
 package cn.itcast.order.domain;
 
+import cn.itcast.order.common.GoodsStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ public class Goods {
     private String goodsId;
     @Column(name = "name")
     private String name;
+    @Column(name = "author")
+    private String author;
     @Column(name = "publisher")
     private String publisher;
     @Column(name = "medium")
@@ -28,6 +31,9 @@ public class Goods {
     private String imageUrl;
     @Column(name = "details")
     private String details;
-    @Column(name = "price", precision = 19, scale = 2)
+    @Column(name = "price", precision = 10, scale = 2)
     private BigDecimal price;
+
+    @Column(name = "status")
+    private GoodsStatus status;
 }

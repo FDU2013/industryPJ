@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
@@ -20,9 +21,9 @@ public class PurchaseRecord {
     @Column(name = "goods_id")
     private String goodsId;
     @Column(name = "goods_num")
-    private String goodsNum;
-    @Column(name = "total_price")
-    private String totalPrice;
+    private Integer goodsNum;
+    @Column(name = "total_price", precision = 10, scale = 2)
+    private BigDecimal totalPrice;
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
