@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MediumTableEntity {
+public class MediumTableEntry {
     String mediumName;
 }
