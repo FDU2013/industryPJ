@@ -2,6 +2,7 @@ package cn.itcast.order.web;
 
 
 import cn.itcast.feign.common.Result;
+import cn.itcast.order.common.AddGoodData;
 import cn.itcast.order.common.GoodSearchData;
 import cn.itcast.order.common.GoodsStatus;
 import cn.itcast.order.common.MyPage;
@@ -33,9 +34,9 @@ public class GoodManageController {
     }
 
     @PostMapping("/addGood")
-    public Result addGood(@RequestBody Goods good) {
+    public Result addGood(@RequestBody AddGoodData good) {
         try{
-            goodService.addGoods(good);
+            goodService.addGoods(good.ToGoods());
             return Result.succ(good.getName(),"添加成功");
         }catch (Exception e){
             e.printStackTrace();
