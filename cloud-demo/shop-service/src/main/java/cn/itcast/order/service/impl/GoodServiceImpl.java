@@ -74,6 +74,11 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
+    public List<Goods> findGoodsByIdIn(List<String> id) throws Exception {
+        return goodsRepository.findByGoodsIdIn(id);
+    }
+
+    @Override
     public List<Goods> getAllGoods() {
         return goodsRepository.findAll();
     }

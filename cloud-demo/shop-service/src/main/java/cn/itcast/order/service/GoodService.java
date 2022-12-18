@@ -11,6 +11,7 @@ public interface GoodService {
     //update: 若传入goods的某个属性为null或空视为该属性不变，id主键必须传入且不可修改
 
     Goods findGoodsById(String id) throws Exception;
+    List<Goods> findGoodsByIdIn(List<String> id) throws Exception;
     List<Goods> getAllGoods();
     List<Goods> getAllGoodsByStatus(GoodsStatus status);
     List<Goods> findGoodsByMediumAndStatus(String medium, GoodsStatus status);

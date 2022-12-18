@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface GoodsRepository extends JpaRepository<Goods, String> {
     Goods findByGoodsId(String goodsId);
+    List<Goods> findByGoodsIdIn(List<String> goodsId);
     List<Goods> findByMedium(String medium);
     List<Goods> findByTag(String tag);
     List<Goods> findByMediumIn(List<String> medium);
