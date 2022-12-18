@@ -1,9 +1,10 @@
 package cn.itcast.order.web;
 
 import cn.itcast.feign.common.Result;
-import cn.itcast.order.common.MediumTableEntity;
+import cn.itcast.order.common.MediumTableEntry;
 import cn.itcast.order.common.MyPage;
 import cn.itcast.order.common.PageSearchData;
+import cn.itcast.order.common.TagTableEntry;
 import cn.itcast.order.domain.GoodsTag;
 import cn.itcast.order.domain.Medium;
 import cn.itcast.order.domain.Publisher;
@@ -108,9 +109,9 @@ public class InfoController {
     public Result getAllMedium() {
         try{
             List<Medium> media = infoService.getAllMedium();
-            List<MediumTableEntity> names = new ArrayList<>();
+            List<MediumTableEntry> names = new ArrayList<>();
             for(Medium medium : media){
-                names.add(new MediumTableEntity(medium.getType()));
+                names.add(new MediumTableEntry(medium.getType()));
             }
             return Result.succ(names);
         }catch (Exception e){
@@ -145,9 +146,9 @@ public class InfoController {
     public Result getAllGoodsTag() {
         try{
             List<GoodsTag> goodsTags = infoService.getAllGoodsTag();
-            List<String> names = new ArrayList<>();
+            List<TagTableEntry> names = new ArrayList<>();
             for(GoodsTag tag : goodsTags){
-                names.add(tag.getName());
+                names.add(new TagTableEntry(tag.getName()));
             }
             return Result.succ(names);
         }catch (Exception e){
