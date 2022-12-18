@@ -23,7 +23,7 @@ import java.util.Objects;
 @Component
 public class AuthorizeFilter implements GlobalFilter, Ordered {
 
-    private String[] skipAuthUrls = {"/auth/login"};
+    private String[] skipAuthUrls = {"/auth/login","auth/register"};
 
     @Autowired
     private AuthClient authClient;
@@ -56,20 +56,21 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         }
 
         //验证一下身份和访问的url是否匹配
-        if(url.startsWith("/user")){
-            if(resp.getAccount().getRole().equals("user"))chain.filter(exchange);
-        }
-        if(url.startsWith("/admin")){
-            if(resp.getAccount().getRole().equals("admin"))chain.filter(exchange);
-        }
-        if(url.startsWith("/shop")){
-            if(resp.getAccount().getRole().equals("admin"))chain.filter(exchange);
-        }
-        if(url.startsWith("/money")){
-            if(resp.getAccount().getRole().equals("admin"))chain.filter(exchange);
-        }
-        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-        return exchange.getResponse().setComplete();
+//        if(url.startsWith("/user")){
+//            if(resp.getRole().equals("user"))chain.filter(exchange);
+//        }
+//        if(url.startsWith("/admin")){
+//            if(resp.getRole().equals("admin"))chain.filter(exchange);
+//        }
+//        if(url.startsWith("/shop")){
+//            if(resp.getRole().equals("admin"))chain.filter(exchange);
+//        }
+//        if(url.startsWith("/money")){
+//            if(resp.getRole().equals("admin"))
+//        }
+        return chain.filter(exchange);
+//        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+//        return exchange.getResponse().setComplete();
 
     }
 
