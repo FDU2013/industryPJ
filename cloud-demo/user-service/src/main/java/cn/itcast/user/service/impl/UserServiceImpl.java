@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUser() throws Exception {
+        return userRepository.findAll();
+    }
+
+    @Override
     public void updateUserInfo(User user) throws Exception {
         User oldUser = userRepository.findByUserId(user.getUserId());
         if(oldUser == null){
