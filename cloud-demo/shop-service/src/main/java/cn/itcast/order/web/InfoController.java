@@ -1,6 +1,7 @@
 package cn.itcast.order.web;
 
 import cn.itcast.feign.common.Result;
+import cn.itcast.order.common.MediumTableEntity;
 import cn.itcast.order.common.MyPage;
 import cn.itcast.order.common.PageSearchData;
 import cn.itcast.order.domain.GoodsTag;
@@ -107,9 +108,9 @@ public class InfoController {
     public Result getAllMedium() {
         try{
             List<Medium> media = infoService.getAllMedium();
-            List<String> names = new ArrayList<>();
+            List<MediumTableEntity> names = new ArrayList<>();
             for(Medium medium : media){
-                names.add(medium.getType());
+                names.add(new MediumTableEntity(medium.getType()));
             }
             return Result.succ(names);
         }catch (Exception e){
