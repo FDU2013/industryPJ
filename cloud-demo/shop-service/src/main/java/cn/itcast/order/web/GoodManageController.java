@@ -2,7 +2,9 @@ package cn.itcast.order.web;
 
 
 import cn.itcast.feign.common.Result;
+import cn.itcast.order.common.AddGoodData;
 import cn.itcast.order.common.GoodSearchData;
+import cn.itcast.order.common.GoodsStatus;
 import cn.itcast.order.common.MyPage;
 import cn.itcast.order.domain.Goods;
 import cn.itcast.order.service.GoodService;
@@ -32,9 +34,9 @@ public class GoodManageController {
     }
 
     @PostMapping("/addGood")
-    public Result addGood(@RequestBody Goods good) {
+    public Result addGood(@RequestBody AddGoodData good) {
         try{
-            goodService.addGoods(good);
+            goodService.addGoods(good.ToGoods());
             return Result.succ(good.getName(),"添加成功");
         }catch (Exception e){
             e.printStackTrace();
@@ -45,10 +47,11 @@ public class GoodManageController {
     @PostMapping("/searchGood")
     public Result searchGood(@RequestBody GoodSearchData searchData) {
         try{
-            List<Goods> goods = goodService.searchGoodsByMediumAndTag(
+            List<Goods> goods = goodService.searchGoodsByMediumAndTagAndStatus(
                     searchData.getMedium(),
                     searchData.getTag(),
-                    searchData.getSearch()
+                    searchData.getSearch(),
+                    GoodsStatus.ForSale
             );
             MyPage<Goods> goodPage = MyPageTool.getPage(goods,searchData.getPageSize(),searchData.getPageNum());
             return Result.succ(goodPage);

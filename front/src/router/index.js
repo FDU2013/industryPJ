@@ -34,6 +34,15 @@ import StudentDropCourse from "@/views/Student/StudentDropCourse";
 import CheckStudentApply from "@/views/Admin/CheckStudentApply";
 import StudentFinishedCourse from "@/views/Student/StudentFinishedCourse";
 import Register from "@/views/Register";
+import AdminMain from "@/views/Admin/AdminMain";
+import AdminGoodsInfo from "@/views/Admin/AdminGoodsInfo";
+import AdminGoodsMedia from "@/views/Admin/AdminGoodsMedium";
+import AdminGoodsPublisher from "@/views/Admin/AdminGoodsPublisher";
+import AdminGoodsTag from "@/views/Admin/AdminGoodsTag";
+import AdminOrderSend from "@/views/Admin/AdminOrderSend";
+import AdminOrderReceive from "@/views/Admin/AdminOrderReceive";
+import AdminOrderFinished from "@/views/Admin/AdminOrderFinished";
+import AdminGoodsMedium from "@/views/Admin/AdminGoodsMedium";
 
 export const routes = [
     {
@@ -62,78 +71,113 @@ export const admin_routes =
     {
         path: '/admin',
         name: 'Admin',
-        component: Admin,
+        component: AdminMain,
         children: [
             {
-                path: 'checkstudentinfo',
-                name: 'CheckStudentInfo',
-                component: CheckStudentInfo
+                path:'goodsinfo',
+                bane:'GoodsInfo',
+                component:AdminGoodsInfo
             },
             {
-                path: 'checkteacherinfo',
-                name: 'CheckTeacherInfo',
-                component: CheckTeacherInfo
+                path:'goodsmedium',
+                bane:'GoodsMedium',
+                component:AdminGoodsMedium
             },
             {
-                path: 'checkschool',
-                name: 'CheckSchool',
-                component: CheckSchool
+                path:'goodspublisher',
+                bane:'GoodsPublisher',
+                component:AdminGoodsPublisher
             },
             {
-                path: 'checkmajor',
-                name: 'CheckMajor',
-                component: CheckMajor
+                path:'goodstag',
+                bane:'GoodsTag',
+                component:AdminGoodsTag
             },
             {
-                path: 'checkbuilding',
-                name: 'CheckBuilding',
-                component: CheckBuilding
+                path:'ordersend',
+                bane:'OrderSend',
+                component:AdminOrderSend
             },
             {
-                path: 'checkclassroom',
-                name: 'CheckClassroom',
-                component: CheckClassroom
+                path:'orderreceive',
+                bane:'OrderReceive',
+                component:AdminOrderReceive
             },
             {
-                path: 'checktime',
-                name: 'CheckTime',
-                component: CheckTime
-            },
-            {
-                path: 'checkcourse',
-                name: 'CheckCourse',
-                component: CheckCourse
-            },
-            {
-                path: 'addcourse',
-                name: 'AddCourse',
-                component: AddCourse
-            },
-            {
-                path: 'editcourse/:id',
-                name: 'EditCourse',
-                component: EditCourse,
-                props(params) {
-                    return {
-                        id: params.id
-                    }
-                }
-            },
-            {
-                path: 'checkapplication',
-                name: 'CheckApplication',
-                component: CheckApplication
-            },
-            {
-                path: 'checkcourseopen',
-                name: 'CheckCourseOpen',
-                component: CheckCourseOpen
-            },
-            {
-                path: 'checkstudentapply',
-                name: 'CheckStudentApply',
-                component: CheckStudentApply
-            },
+                path:'orderfinished',
+                bane:'OrderFinished',
+                component:AdminOrderFinished
+            }
+            // {
+            //     path: 'checkstudentinfo',
+            //     name: 'CheckStudentInfo',
+            //     component: CheckStudentInfo
+            // },
+            // {
+            //     path: 'checkteacherinfo',
+            //     name: 'CheckTeacherInfo',
+            //     component: CheckTeacherInfo
+            // },
+            // {
+            //     path: 'checkschool',
+            //     name: 'CheckSchool',
+            //     component: CheckSchool
+            // },
+            // {
+            //     path: 'checkmajor',
+            //     name: 'CheckMajor',
+            //     component: CheckMajor
+            // },
+            // {
+            //     path: 'checkbuilding',
+            //     name: 'CheckBuilding',
+            //     component: CheckBuilding
+            // },
+            // {
+            //     path: 'checkclassroom',
+            //     name: 'CheckClassroom',
+            //     component: CheckClassroom
+            // },
+            // {
+            //     path: 'checktime',
+            //     name: 'CheckTime',
+            //     component: CheckTime
+            // },
+            // {
+            //     path: 'checkcourse',
+            //     name: 'CheckCourse',
+            //     component: CheckCourse
+            // },
+            // {
+            //     path: 'addcourse',
+            //     name: 'AddCourse',
+            //     component: AddCourse
+            // },
+            // {
+            //     path: 'editcourse/:id',
+            //     name: 'EditCourse',
+            //     component: EditCourse,
+            //     props(params) {
+            //         return {
+            //             id: params.id
+            //         }
+            //     }
+            // },
+            // {
+            //     path: 'checkapplication',
+            //     name: 'CheckApplication',
+            //     component: CheckApplication
+            // },
+            // {
+            //     path: 'checkcourseopen',
+            //     name: 'CheckCourseOpen',
+            //     component: CheckCourseOpen
+            // },
+            // {
+            //     path: 'checkstudentapply',
+            //     name: 'CheckStudentApply',
+            //     component: CheckStudentApply
+            // },
         ]
     }
 
