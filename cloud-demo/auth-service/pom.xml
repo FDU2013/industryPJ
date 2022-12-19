@@ -44,6 +44,12 @@
             <artifactId>java-jwt</artifactId>
             <version>3.19.0</version>
         </dependency>
+        <!--引入feign的统一api-->
+        <dependency>
+            <groupId>cn.itcast.demo</groupId>
+            <artifactId>feign-api</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- Spring Boot Redis 依赖 -->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->

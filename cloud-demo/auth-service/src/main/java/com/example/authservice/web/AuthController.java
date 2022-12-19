@@ -1,6 +1,10 @@
 package com.example.authservice.web;
 
+import cn.itcast.feign.clients.MoneyClient;
+import cn.itcast.feign.clients.UserClient;
+import cn.itcast.feign.domain.AddUserData;
 import com.example.authservice.common.LoginData;
+import com.example.authservice.common.RegisterData;
 import com.example.authservice.common.Result;
 import com.example.authservice.pojo.Account;
 import com.example.authservice.domain.AccountEntity;
@@ -25,6 +29,10 @@ public class AuthController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private MoneyClient moneyClient;
+    @Autowired
+    private UserClient userClient;
 
     @PostMapping("/login")
     @ResponseBody
@@ -50,6 +58,29 @@ public class AuthController {
 
         return Result.succ(account,"登录成功");
     }
+
+    @PostMapping("/register")
+    @ResponseBody
+    public Result register(@RequestBody RegisterData registerData) {
+        AccountEntity accountEntity;
+        try{
+            accountEntity = accountService.addUserAccount(registerData);
+            boolean succ = userClient.addUser(new AddUserData(
+                    registerData.getID(),
+                    registerData.getName(),
+                    registerData.getEmail(),
+                    registerData.getPhone()
+            ));
+            System.out.println(succ);
+            succ &= moneyClient.init(registerData.getID());
+            if(!succ)throw new Exception("注册失败");
+            return Result.succ(registerData.getID(),"注册成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(305,e.getMessage());
+        }
+    }
+
 
     @PostMapping("/addUser")
     @ResponseBody

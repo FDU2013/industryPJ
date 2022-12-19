@@ -23,7 +23,7 @@ import java.util.Objects;
 @Component
 public class AuthorizeFilter implements GlobalFilter, Ordered {
 
-    private String[] skipAuthUrls = {"/auth/login","auth/register"};
+    private String[] skipAuthUrls = {"/auth/login","/auth/register"};
 
     @Autowired
     private AuthClient authClient;

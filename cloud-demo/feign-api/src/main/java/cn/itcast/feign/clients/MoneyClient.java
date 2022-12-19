@@ -12,18 +12,18 @@ import java.math.BigDecimal;
 @FeignClient("moneyservice")
 public interface MoneyClient {
 
-    @PostMapping("/init")
+    @PostMapping("/money/init")
     public boolean init(@RequestBody String id);
 
-    @PostMapping("/add")
+    @PostMapping("/money/add")
     public boolean add(@RequestBody UserMoneyData umd);
 
-    @PostMapping("/decrease")
+    @PostMapping("/money/decrease")
     public boolean decrease(@RequestBody UserMoneyData umd);
 
-    @PostMapping("/isEnough")
+    @PostMapping("/money/isEnough")
     public boolean isEnough(@RequestBody UserMoneyData umd);
 
-    @GetMapping("/getMoney")
+    @GetMapping("/money/getMoney")
     public BigDecimal getMoney(@PathVariable("id") String id);
 }
