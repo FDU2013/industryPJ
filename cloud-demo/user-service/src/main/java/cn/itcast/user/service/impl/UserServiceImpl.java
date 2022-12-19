@@ -30,9 +30,18 @@ public class UserServiceImpl implements UserService {
     public void addUser(User user) throws Exception {
         User exist = userRepository.findByAccount(user.getAccount());
         if(exist != null){
-            throw new Exception("用户id已存在");
+            throw new Exception("用户账号已存在");
         }
         userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByAccount(String account) throws Exception {
+        User user = userRepository.findByAccount(account);
+        if(user == null){
+            throw new Exception("用户不存在");
+        }
+        return user;
     }
 
     @Override
