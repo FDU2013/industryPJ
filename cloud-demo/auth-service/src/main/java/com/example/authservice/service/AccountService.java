@@ -18,7 +18,7 @@ public class AccountService {
         AccountEntity account= accountRepository.findByID(id);
         System.out.println("password="+password+", account.password="+account.getPassword());
         if(password==null || !password.equals(account.getPassword())){
-            throw new Exception();
+            throw new Exception("密码错误");
         }
         return account;
     }
@@ -34,6 +34,18 @@ public class AccountService {
         }
         accountRepository.save(new AccountEntity(registerData.getID(),registerData.getPassword(),"user"));
         return account;
+    }
+
+    public void changePassword(String id,String oldPassword,String newPassword)throws Exception{
+        AccountEntity account= accountRepository.findByID(id);
+        if(oldPassword==null || !oldPassword.equals(account.getPassword())){
+            throw new Exception("密码错误");
+        }
+        if(newPassword==null || newPassword.equals("")){
+            throw new Exception("新密码不能为空");
+        }
+        account.setPassword(newPassword);
+        accountRepository.save(account);
     }
 
 }

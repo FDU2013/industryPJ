@@ -37,8 +37,8 @@ public class MoneyController {
         return moneyService.isEnough(umd);
     }
 
-    @GetMapping("/getMoney")
-    public BigDecimal getMoney(@PathVariable("id") String id) {
+    @PostMapping("/getMoney")
+    public BigDecimal getMoney(@RequestBody String id) {
         return moneyService.getMoney(id);
     }
 }
