@@ -61,6 +61,10 @@ public class GoodServiceImpl implements GoodService {
         if(price != null && price.compareTo(new BigDecimal(0)) > 0){
             oldGoods.setPrice(price);
         }
+        GoodsStatus status = goods.getStatus();
+        if(status != null){
+            oldGoods.setStatus(status);
+        }
         goodsRepository.save(oldGoods);
     }
 
