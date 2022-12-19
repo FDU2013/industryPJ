@@ -15,8 +15,8 @@ public interface MoneyClient {
     @PostMapping("/money/init")
     public boolean init(@RequestBody String id);
 
-    @PostMapping("/money/add")
-    public boolean add(@RequestBody UserMoneyData umd);
+//    @PostMapping("/money/add")
+//    public boolean add(@RequestBody UserMoneyData umd);
 
     @PostMapping("/money/decrease")
     public boolean decrease(@RequestBody UserMoneyData umd);
