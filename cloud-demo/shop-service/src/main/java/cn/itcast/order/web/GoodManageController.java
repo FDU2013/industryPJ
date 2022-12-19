@@ -24,8 +24,9 @@ public class GoodManageController {
     @PostMapping("/updateGood")
     public Result updateGood(@RequestBody Goods good) {
         try{
+            System.out.println(good.getStatus().toString());
             goodService.updateGoods(good);
-            return Result.succ(good.getName(),"添加成功");
+            return Result.succ(good.getName(),"修改成功");
         }catch (Exception e){
             e.printStackTrace();
             return Result.fail(300,e.getMessage());
@@ -44,14 +45,31 @@ public class GoodManageController {
         }
     }
 
-    @PostMapping("/searchGood")
-    public Result searchGood(@RequestBody GoodSearchData searchData) {
+    @PostMapping("/adminSearchForSaleGood")
+    public Result adminSearchForSaleGood(@RequestBody GoodSearchData searchData) {
         try{
             List<Goods> goods = goodService.searchGoodsByMediumAndTagAndStatus(
                     searchData.getMedium(),
                     searchData.getTag(),
                     searchData.getSearch(),
                     GoodsStatus.ForSale
+            );
+            MyPage<Goods> goodPage = MyPageTool.getPage(goods,searchData.getPageSize(),searchData.getPageNum());
+            return Result.succ(goodPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(302,e.getMessage());
+        }
+    }
+
+    @PostMapping("/adminSearchSoldOutGood")
+    public Result adminSearchSoldOutGood(@RequestBody GoodSearchData searchData) {
+        try{
+            List<Goods> goods = goodService.searchGoodsByMediumAndTagAndStatus(
+                    searchData.getMedium(),
+                    searchData.getTag(),
+                    searchData.getSearch(),
+                    GoodsStatus.SoldOut
             );
             MyPage<Goods> goodPage = MyPageTool.getPage(goods,searchData.getPageSize(),searchData.getPageNum());
             return Result.succ(goodPage);
