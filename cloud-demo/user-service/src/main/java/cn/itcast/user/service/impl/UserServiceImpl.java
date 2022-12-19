@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public void addUser(User user) throws Exception {
-        User exist = userRepository.findByUserId(user.getUserId());
+        User exist = userRepository.findByAccount(user.getAccount());
         if(exist != null){
             throw new Exception("用户id已存在");
         }
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserInfo(User user) throws Exception {
-        User oldUser = userRepository.findByUserId(user.getUserId());
+        User oldUser = userRepository.findByAccount(user.getAccount());
         if(oldUser == null){
             throw new Exception("用户不存在");
         }
@@ -62,8 +62,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addAddress(String userId, Address address) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public void addAddress(String account, Address address) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
@@ -72,26 +72,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteAddress(String userId, Integer addressId) throws Exception {
+    public void deleteAddress(String account, Integer addressId) throws Exception {
         Optional<Address> opAddress = addressRepository.findById(addressId);
         if(!opAddress.isPresent()){
             throw new Exception("地址不存在");
         }
         Address address = opAddress.get();
-        if(!address.getUser().getUserId().equals(userId)){
+        if(!address.getUser().getAccount().equals(account)){
             throw new Exception("用户与地址不匹配");
         }
         addressRepository.delete(address);
     }
 
     @Override
-    public List<Address> getUserAddress(String userId) {
-        return userRepository.findByUserId(userId).getAddress();
+    public List<Address> getUserAddress(String account) {
+        return userRepository.findByAccount(account).getAddress();
     }
 
     @Override
-    public void updateAddress(String userId, Address address) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public void updateAddress(String account, Address address) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
@@ -120,8 +120,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addGoodsToCart(String userId, String goodsId, Integer num) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public void addGoodsToCart(String account, String goodsId, Integer num) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
@@ -135,8 +135,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void reduceGoodsOfCart(String userId, String goodsId, Integer num) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public void reduceGoodsOfCart(String account, String goodsId, Integer num) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
@@ -156,8 +156,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteGoodsOfCart(String userId, String goodsId) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public void deleteGoodsOfCart(String account, String goodsId) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
@@ -165,8 +165,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void emptyCartOfUser(String userId) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public void emptyCartOfUser(String account) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
@@ -174,8 +174,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public HashMap<String, Integer> getCartOfUser(String userId) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public HashMap<String, Integer> getCartOfUser(String account) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
@@ -188,8 +188,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public HashMap<String, Integer> purchaseInCart(String userId, List<String> goodsIdList) throws Exception {
-        User user = userRepository.findByUserId(userId);
+    public HashMap<String, Integer> purchaseInCart(String account, List<String> goodsIdList) throws Exception {
+        User user = userRepository.findByAccount(account);
         if(user == null){
             throw new Exception("用户不存在");
         }
