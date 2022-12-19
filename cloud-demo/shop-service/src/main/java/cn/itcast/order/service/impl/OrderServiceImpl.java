@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
         this.commentRepository = commentRepository;
     }
     @Override
-    public List<String> generateOrder(String buyerId, HashMap<String, Integer> goodsIdAndNum) {
+    public List<String> generateOrder(String buyerId, HashMap<String, Integer> goodsIdAndNum) throws Exception {
         List<String> res = new ArrayList<>();
         BigDecimal total = new BigDecimal(0);
         List<PurchaseRecord> records = new ArrayList<>();
@@ -49,6 +49,9 @@ public class OrderServiceImpl implements OrderService {
             Integer num = goodsIdAndNum.get(id);
             records.add(new PurchaseRecord(null, buyerId, goods.getGoodsId(), num, price.multiply(new BigDecimal(num)),
                     order, null));
+        }
+        if(records.size() == 0){
+            throw new Exception("订单内商品全部下架，生成订单失败");
         }
         order.setTotalPrice(total);
         order.setRecords(records);

@@ -107,7 +107,7 @@ public class GoodServiceImpl implements GoodService {
         List<Goods> temp;
         if(medium == null || medium.size() == 0){
             if(tag == null || tag.size() == 0){
-                temp = goodsRepository.findAll();
+                temp = goodsRepository.findByStatus(status);
             } else {
                 temp = goodsRepository.findByTagInAndStatus(tag, status);
             }

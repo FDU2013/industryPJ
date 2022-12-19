@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface OrderService {
-    List<String> generateOrder(String buyerId, HashMap<String, Integer> goodsIdAndNum);
+    List<String> generateOrder(String buyerId, HashMap<String, Integer> goodsIdAndNum) throws Exception;
     List<Order> findOrderByUserAndStatus(String userId, OrderStatus status);
     List<PurchaseRecord> findRecordByOrder(Long orderId) throws Exception;
     void deliverGoodsOfOrder(Long orderId) throws Exception;
