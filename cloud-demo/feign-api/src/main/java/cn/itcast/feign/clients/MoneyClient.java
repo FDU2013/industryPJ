@@ -24,6 +24,6 @@ public interface MoneyClient {
     @PostMapping("/money/isEnough")
     public boolean isEnough(@RequestBody UserMoneyData umd);
 
-    @GetMapping("/money/getMoney")
-    public BigDecimal getMoney(@PathVariable("id") String id);
+    @PostMapping("/money/getMoney")
+    public BigDecimal getMoney(@RequestBody String id);
 }

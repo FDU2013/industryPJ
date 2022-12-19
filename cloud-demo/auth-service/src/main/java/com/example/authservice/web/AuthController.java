@@ -15,6 +15,7 @@ import com.example.authservice.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -120,5 +121,16 @@ public class AuthController {
                 .code(success ? AuthResponseCode.SUCCESS : AuthResponseCode.USER_NOT_FOUND)
                 .msg(success ? "认证成功" : "认证失败")
                 .build();
+    }
+
+    @PostMapping("/changePassword")
+    public boolean changePassword(@RequestBody Map<String,String> map){
+        try {
+            accountService.changePassword(map.get("ID"),map.get("oldPassword"),map.get("newPassword"));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }
