@@ -32,6 +32,8 @@ public class Order {
 
     @Column(name = "address")
     private String address;
+    @Column(name = "notes")
+    private String notes;
 
     @Column(name = "waybill_num")
     private String waybillNum;

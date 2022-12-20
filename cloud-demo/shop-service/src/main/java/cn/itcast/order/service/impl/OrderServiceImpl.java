@@ -37,7 +37,8 @@ public class OrderServiceImpl implements OrderService {
         List<String> res = new ArrayList<>();
         BigDecimal total = new BigDecimal(0);
         List<PurchaseRecord> records = new ArrayList<>();
-        Order order = orderRepository.save(new Order(null, buyerId, null, OrderStatus.NotPaid, new ArrayList<>(), null, null));
+        Order order = orderRepository.save(new Order(null, buyerId, null, OrderStatus.NotPaid, new ArrayList<>(),
+                null, null, null));
         for(String id:goodsIdAndNum.keySet()){
             Goods goods = goodsRepository.findByGoodsId(id);
             if(goods.getStatus() == GoodsStatus.SoldOut){
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void purchaseOrder(Long orderId, String address) throws Exception {
+    public void purchaseOrder(Long orderId, String address, String notes) throws Exception {
         Optional<Order> opOrder = orderRepository.findById(orderId);
         if(!opOrder.isPresent()){
             throw new Exception("订单号错误");
@@ -72,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setStatus(OrderStatus.NotYetShipped);
         order.setAddress(address);
+        order.setNotes(notes);
         orderRepository.save(order);
     }
 
