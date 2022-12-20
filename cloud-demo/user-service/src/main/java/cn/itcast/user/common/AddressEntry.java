@@ -31,4 +31,8 @@ public class AddressEntry {
         }
         return ret;
     }
+
+    public String ToString(){
+        return this.getDetails()+"  "+this.getName()+"  "+this.getPhone()+"  ("+this.getDescription()+")";
+    }
 }

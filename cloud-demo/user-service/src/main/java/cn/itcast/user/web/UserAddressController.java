@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -55,4 +56,21 @@ public class UserAddressController {
             return Result.fail(311,e.getMessage());
         }
     }
+    @PostMapping("/allAddressString")
+    public Result allAddressString(HttpServletRequest request) {
+        String ID = request.getHeader("ID");
+        try{
+            List<Address>  addresses = userService.getUserAddress(ID);
+            List<String> ret = new ArrayList<>();
+            List<AddressEntry> addressEntries = AddressEntry.GetEntry(addresses);
+            for (AddressEntry entry:addressEntries){
+                ret.add(entry.ToString());
+            }
+            return  Result.succ(ret);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(311,e.getMessage());
+        }
+    }
+
 }
