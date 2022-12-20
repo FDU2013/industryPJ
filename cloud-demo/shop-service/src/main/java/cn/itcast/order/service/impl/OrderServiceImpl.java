@@ -1,8 +1,10 @@
 package cn.itcast.order.service.impl;
 
 import cn.itcast.order.common.CommentStatus;
+import cn.itcast.order.common.GoodsCommentData;
 import cn.itcast.order.common.GoodsStatus;
 import cn.itcast.feign.common.OrderStatus;
+import cn.itcast.order.common.UserCommentData;
 import cn.itcast.order.domain.Comment;
 import cn.itcast.order.domain.Goods;
 import cn.itcast.order.domain.Order;
@@ -155,5 +157,34 @@ public class OrderServiceImpl implements OrderService {
         }
         Order order = opOrder.get();
         return order;
+    }
+
+    @Override
+    public List<UserCommentData> getCommentByUserAndStatus(String userId, CommentStatus status) {
+        List<PurchaseRecord> records = purchaseRecordRepository.findByBuyerId(userId);
+        List<UserCommentData> res = new ArrayList<>();
+        if(records == null) return res;
+        for(PurchaseRecord record:records){
+            Comment comment = record.getComment();
+            if(comment.getStatus() == status){
+                res.add(new UserCommentData(comment, record.getOrder(),
+                        goodsRepository.findByGoodsId(record.getGoodsId())));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public List<GoodsCommentData> getCommentByGoods(String goodsId) {
+        List<PurchaseRecord> records = purchaseRecordRepository.findByGoodsId(goodsId);
+        List<GoodsCommentData> res = new ArrayList<>();
+        if(records == null) return res;
+        for(PurchaseRecord record:records){
+            Comment comment = record.getComment();
+            if(comment.getStatus() == CommentStatus.Filled){
+                res.add(new GoodsCommentData(comment, record.getBuyerId()));
+            }
+        }
+        return res;
     }
 }
