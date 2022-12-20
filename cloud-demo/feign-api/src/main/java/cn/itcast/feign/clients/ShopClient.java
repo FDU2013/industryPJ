@@ -43,4 +43,7 @@ public interface ShopClient {
 
     @PostMapping("/shop/pay")
     public boolean pay(@RequestBody PayData payData);
+
+    @PostMapping("/shop/confirmReceive")
+    public boolean confirmReceive(@RequestBody Long orderID);
 }

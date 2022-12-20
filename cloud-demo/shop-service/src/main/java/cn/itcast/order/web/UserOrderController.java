@@ -10,7 +10,6 @@ import cn.itcast.order.domain.Order;
 import cn.itcast.order.domain.PurchaseRecord;
 import cn.itcast.order.service.GoodService;
 import cn.itcast.order.service.OrderService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/shop")
-public class OrderController {
+public class UserOrderController {
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -106,6 +105,17 @@ public class OrderController {
             if(!moneyClient.isEnough(umd))throw new Exception();
             orderService.purchaseOrder(payData.getOrderID(),payData.getAddress(),payData.getNotes());
             moneyClient.decrease(umd);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @PostMapping("/confirmReceive")
+    public boolean confirmReceive(@RequestBody Long orderID) {
+        try {
+            orderService.confirmReceipt(orderID);
             return true;
         }catch (Exception e){
             e.printStackTrace();

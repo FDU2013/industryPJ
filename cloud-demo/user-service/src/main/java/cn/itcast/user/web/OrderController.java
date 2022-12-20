@@ -111,4 +111,16 @@ public class OrderController {
             return Result.fail(330,"支付失败\n"+e.getMessage());
         }
     }
+
+    @PostMapping("/confirmReceive")
+    public Result confirmReceive(@RequestBody Long orderID, HttpServletRequest request) {
+        String ID = request.getHeader("ID");
+        try{
+            if(!shopClient.confirmReceive(orderID))throw new Exception();
+            return Result.succ(null,"确认收货");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(330,"确认收货失败\n"+e.getMessage());
+        }
+    }
 }
