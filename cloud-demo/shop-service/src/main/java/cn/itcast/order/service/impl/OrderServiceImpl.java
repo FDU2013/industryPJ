@@ -45,12 +45,13 @@ public class OrderServiceImpl implements OrderService {
                 continue;
             }
             BigDecimal price = goods.getPrice();
-            total = total.add(price);
+            total = total.add(price.multiply(new BigDecimal(goodsIdAndNum.get(id))));
             Integer num = goodsIdAndNum.get(id);
             records.add(new PurchaseRecord(null, buyerId, goods.getGoodsId(), num, price.multiply(new BigDecimal(num)),
                     order, null));
         }
         if(records.size() == 0){
+            orderRepository.deleteById(order.getId());
             throw new Exception("订单内商品全部下架，生成订单失败");
         }
         order.setTotalPrice(total);

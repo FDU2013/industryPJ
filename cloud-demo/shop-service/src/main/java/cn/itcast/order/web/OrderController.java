@@ -2,14 +2,29 @@ package cn.itcast.order.web;
 
 
 import cn.itcast.feign.common.Result;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import cn.itcast.feign.common.UserOrderData;
+import cn.itcast.order.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/shop")
 public class OrderController {
+    @Autowired
+    private OrderService orderService;
+
+    @PostMapping("/generateOrder")
+    public List<String> generateOrder(@RequestBody UserOrderData userOrderData) {
+        try {
+            List<String> SoldOutGood = orderService.generateOrder(userOrderData.getBuyerId(),userOrderData.getGoodsIdAndNum());
+            return SoldOutGood;
+        }catch (Exception e){
+            return null;
+        }
+
+    }
 
     @PostMapping("/searchUndeliverOrder")
     public Result searchUndeliverOrder(@PathVariable("id") Long id) {

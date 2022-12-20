@@ -34,6 +34,7 @@ public class ShoplistController {
         try{
             HashMap<String, Integer> pairs = userService.getCartOfUser(ID);
             List<GoodInfoNumData> infos = shopClient.entendGoodInfo(pairs);
+            if(infos==null)throw new Exception("购物车中有不存在的商品!请联系管理员");
             BigDecimal totalPrice = new BigDecimal(0);
             for(GoodInfoNumData info:infos){
                 totalPrice = totalPrice.add(info.getPrice().multiply(new BigDecimal(info.getNum())));
@@ -61,8 +62,14 @@ public class ShoplistController {
 
     @PostMapping("/updateShoplist")
     public Result updateShoplist(@RequestBody GoodNumData goodNumData,HttpServletRequest request) {
-        //TODO 参数还需要删除掉的收获地址
-        return Result.fail(300,"300");
+        String ID = request.getHeader("ID");
+        try{
+            userService.updateGoodsInCart(ID,goodNumData.getGoodID(), goodNumData.getNum());
+            return Result.succ(null,"修改成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(330,"修改失败\n"+e.getMessage());
+        }
     }
 
     @PostMapping("/clearShoplist")

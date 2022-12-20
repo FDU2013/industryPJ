@@ -109,7 +109,7 @@ public class GoodManageController {
             return list;
         }catch (Exception e){
             e.printStackTrace();
-            return new ArrayList<>();
+            return null;
         }
     }
 

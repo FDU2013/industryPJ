@@ -3,6 +3,7 @@ package cn.itcast.feign.clients;
 import cn.itcast.feign.common.GoodInfoNumData;
 import cn.itcast.feign.common.GoodSearchData;
 import cn.itcast.feign.common.MyPage;
+import cn.itcast.feign.common.UserOrderData;
 import cn.itcast.feign.domain.Goods;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,9 @@ public interface ShopClient {
 
     @PostMapping("/shop/SearchForSaleGood")
     public MyPage<Goods> SearchForSaleGood(@RequestBody GoodSearchData searchData);
+
+    @PostMapping("/shop/generateOrder")
+    public List<String> generateOrder(@RequestBody UserOrderData userOrderData);
 
 
 
