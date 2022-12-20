@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
         List<String> res = new ArrayList<>();
         BigDecimal total = new BigDecimal(0);
         List<PurchaseRecord> records = new ArrayList<>();
-        Order order = orderRepository.save(new Order(null, buyerId, null, OrderStatus.NotPaid, new ArrayList<>(), null));
+        Order order = orderRepository.save(new Order(null, buyerId, null, OrderStatus.NotPaid, new ArrayList<>(), null, null));
         for(String id:goodsIdAndNum.keySet()){
             Goods goods = goodsRepository.findByGoodsId(id);
             if(goods.getStatus() == GoodsStatus.SoldOut){
@@ -61,6 +61,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void purchaseOrder(Long orderId, String address) throws Exception {
+        Optional<Order> opOrder = orderRepository.findById(orderId);
+        if(!opOrder.isPresent()){
+            throw new Exception("订单号错误");
+        }
+        Order order = opOrder.get();
+        if(order.getStatus() != OrderStatus.NotPaid){
+            throw new Exception("订单已支付");
+        }
+        order.setStatus(OrderStatus.NotYetShipped);
+        order.setAddress(address);
+        orderRepository.save(order);
+    }
+
+    @Override
     public List<Order> findOrderByUserAndStatus(String userId, OrderStatus status) {
         return orderRepository.findByBuyerIdAndStatus(userId, status);
     }
@@ -75,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deliverGoodsOfOrder(Long orderId) throws Exception {
+    public void deliverGoodsOfOrder(Long orderId, String waybillNum) throws Exception {
         Optional<Order> opOrder = orderRepository.findById(orderId);
         if(!opOrder.isPresent()){
             throw new Exception("订单号错误");
@@ -85,6 +100,7 @@ public class OrderServiceImpl implements OrderService {
             throw new Exception("该订单状态不是未发货");
         }
         order.setStatus(OrderStatus.Shipped);
+        order.setWaybillNum(waybillNum);
         orderRepository.save(order);
     }
 

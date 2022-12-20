@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface OrderService {
     List<String> generateOrder(String buyerId, HashMap<String, Integer> goodsIdAndNum) throws Exception;
+    void purchaseOrder(Long orderId, String address) throws Exception;
     List<Order> findOrderByUserAndStatus(String userId, OrderStatus status);
     List<PurchaseRecord> findRecordByOrder(Long orderId) throws Exception;
-    void deliverGoodsOfOrder(Long orderId) throws Exception;
+    void deliverGoodsOfOrder(Long orderId, String waybillNum) throws Exception;
     void confirmReceipt(Long orderId) throws Exception;
     void comment(Long recordId, String content, Integer stars) throws Exception;
 

@@ -30,6 +30,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<PurchaseRecord> records;
 
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "waybill_num")
     private String waybillNum;
 }
