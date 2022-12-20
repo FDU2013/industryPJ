@@ -1,6 +1,6 @@
-package cn.itcast.order.util;
+package cn.itcast.feign.util;
 
-import cn.itcast.order.common.MyPage;
+import cn.itcast.feign.common.MyPage;
 
 import java.util.ArrayList;
 import java.util.List;

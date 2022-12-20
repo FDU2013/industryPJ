@@ -22,4 +22,8 @@ public interface UserService {
     void emptyCartOfUser(String account) throws Exception;
     HashMap<String, Integer> getCartOfUser(String account) throws Exception;
     HashMap<String, Integer> purchaseInCart(String account, List<String> goodsIdList) throws Exception;
+
+    //12.20新增
+    HashMap<String, Integer> purchaseAllCart(String account) throws Exception;
+    void updateGoodsInCart(String account, String goodsId, Integer num) throws Exception;
 }

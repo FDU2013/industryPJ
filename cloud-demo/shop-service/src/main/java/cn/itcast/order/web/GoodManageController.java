@@ -1,18 +1,19 @@
 package cn.itcast.order.web;
 
 
+import cn.itcast.feign.common.MyPage;
 import cn.itcast.feign.common.Result;
-import cn.itcast.order.common.AddGoodData;
-import cn.itcast.order.common.GoodSearchData;
-import cn.itcast.order.common.GoodsStatus;
-import cn.itcast.order.common.MyPage;
+import cn.itcast.order.common.*;
 import cn.itcast.order.domain.Goods;
 import cn.itcast.order.service.GoodService;
-import cn.itcast.order.util.MyPageTool;
+import cn.itcast.feign.util.MyPageTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/shop")
@@ -62,6 +63,23 @@ public class GoodManageController {
         }
     }
 
+    @PostMapping("/SearchForSaleGood")
+    public MyPage<Goods> SearchForSaleGood(@RequestBody GoodSearchData searchData) {
+        try{
+            List<Goods> goods = goodService.searchGoodsByMediumAndTagAndStatus(
+                    searchData.getMedium(),
+                    searchData.getTag(),
+                    searchData.getSearch(),
+                    GoodsStatus.ForSale
+            );
+            MyPage<Goods> goodPage = MyPageTool.getPage(goods,searchData.getPageSize(),searchData.getPageNum());
+            return goodPage;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @PostMapping("/adminSearchSoldOutGood")
     public Result adminSearchSoldOutGood(@RequestBody GoodSearchData searchData) {
         try{
@@ -76,6 +94,22 @@ public class GoodManageController {
         }catch (Exception e){
             e.printStackTrace();
             return Result.fail(302,e.getMessage());
+        }
+    }
+
+    @PostMapping("/entendGoodInfo")
+    public List<GoodInfoNumData> entendGoodInfo(@RequestBody HashMap<String, Integer> shoplist) {
+        try{
+            List<GoodInfoNumData> list = new ArrayList<>();
+            Set<String> goodIDs = shoplist.keySet();
+            for (String goodID:goodIDs){
+                Goods good = goodService.findGoodsById(goodID);
+                list.add(GoodInfoNumData.getPair(good,shoplist.get(goodID)));
+            }
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 

@@ -1,15 +1,15 @@
 package cn.itcast.order.web;
 
+import cn.itcast.feign.common.MyPage;
 import cn.itcast.feign.common.Result;
 import cn.itcast.order.common.MediumTableEntry;
-import cn.itcast.order.common.MyPage;
 import cn.itcast.order.common.PageSearchData;
 import cn.itcast.order.common.TagTableEntry;
 import cn.itcast.order.domain.GoodsTag;
 import cn.itcast.order.domain.Medium;
 import cn.itcast.order.domain.Publisher;
 import cn.itcast.order.service.InfoService;
-import cn.itcast.order.util.MyPageTool;
+import cn.itcast.feign.util.MyPageTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

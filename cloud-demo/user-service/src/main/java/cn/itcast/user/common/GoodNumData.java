@@ -1,15 +1,13 @@
-package cn.itcast.order.common;
+package cn.itcast.user.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MyPage<Object> {
-    Integer total;
-    List<Object> records;
+public class GoodNumData {
+    String goodID;
+    Integer num;
 }
