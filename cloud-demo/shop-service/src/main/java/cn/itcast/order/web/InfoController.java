@@ -120,6 +120,21 @@ public class InfoController {
         }
     }
 
+    @PostMapping("/getAllMediumName")
+    public Result getAllMediumName() {
+        try{
+            List<Medium> media = infoService.getAllMedium();
+            List<String> names = new ArrayList<>();
+            for(Medium medium : media){
+                names.add(medium.getType());
+            }
+            return Result.succ(names);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(302,e.getMessage());
+        }
+    }
+
     @PostMapping("/addGoodsTag")
     public Result addGoodsTag(@RequestBody String name) {
         try{
@@ -149,6 +164,21 @@ public class InfoController {
             List<TagTableEntry> names = new ArrayList<>();
             for(GoodsTag tag : goodsTags){
                 names.add(new TagTableEntry(tag.getName()));
+            }
+            return Result.succ(names);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(302,e.getMessage());
+        }
+    }
+
+    @PostMapping("/getAllGoodsTagName")
+    public Result getAllGoodsTagName() {
+        try{
+            List<GoodsTag> goodsTags = infoService.getAllGoodsTag();
+            List<String> names = new ArrayList<>();
+            for(GoodsTag tag : goodsTags){
+                names.add(tag.getName());
             }
             return Result.succ(names);
         }catch (Exception e){
