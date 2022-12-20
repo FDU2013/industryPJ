@@ -5,6 +5,7 @@ import cn.itcast.feign.common.OrderStatus;
 import cn.itcast.feign.common.PageSearchData;
 import cn.itcast.feign.common.Result;
 import cn.itcast.feign.util.MyPageTool;
+import cn.itcast.order.common.DeliverData;
 import cn.itcast.order.common.OrderToSee;
 import cn.itcast.order.domain.Order;
 import cn.itcast.order.service.GoodService;
@@ -59,8 +60,13 @@ public class AdminOrderController {
     }
 
     @PostMapping("/deliver")
-    public Result deliver(@RequestBody String id) {
-
-        return Result.fail(300,"300");
+    public Result deliver(@RequestBody DeliverData deliverData) {
+        try{
+            orderService.deliverGoodsOfOrder(deliverData.getOrderID(),deliverData.getDeliverNo());
+            return Result.succ(null,"发货成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(340,"发货失败\n"+e.getMessage());
+        }
     }
 }
