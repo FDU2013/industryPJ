@@ -17,7 +17,10 @@
               <router-link to="/admin/goodstag">商品标签管理</router-link>
             </el-menu-item>
             <el-menu-item index="1-4">
-              <router-link to="/admin/goodsinfo">商品信息管理</router-link>
+              <router-link to="/admin/goodsforsale">在售商品管理</router-link>
+            </el-menu-item>
+            <el-menu-item index="1-5">
+              <router-link to="/admin/goodssoldout">下架商品管理</router-link>
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>

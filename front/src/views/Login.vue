@@ -39,7 +39,7 @@
 
 <script>
 import request from "@/utils/request";
-import {admin_routes} from "@/router";
+import {admin_routes, user_routes} from "@/router";
 import {student_routes} from "@/router";
 import {teacher_routes} from "@/router";
 import router from "@/router";
@@ -85,7 +85,6 @@ export default {
     },
     login: function (){
       request.post("/auth/login", this.login_data).then(res => {
-        console.log(res.data.code)
         if (res.data.code === 200) {
           this.$message({
             type: "success",
@@ -101,23 +100,30 @@ export default {
             }, 10);
 
           }
-          else if (res.data.data.role === "student") {
-            router.addRoute(student_routes)
+          else if (res.data.data.role === "user") {
+            router.addRoute(user_routes)
             add_routes()
-            router.push('/student')
-            setTimeout(() => {
-              router.go(0)
-            }, 10);
-
-          }
-          else if (res.data.data.role === "teacher") {
-            router.addRoute(teacher_routes)
-            add_routes()
-            router.push('/teacher')
+            router.push('/user')
             setTimeout(() => {
               router.go(0)
             }, 10);
           }
+          // else if (res.data.data.role === "student") {
+          //   router.addRoute(student_routes)
+          //   add_routes()
+          //   router.push('/student')
+          //   setTimeout(() => {
+          //     router.go(0)
+          //   }, 10);
+          // }
+          // else if (res.data.data.role === "teacher") {
+          //   router.addRoute(teacher_routes)
+          //   add_routes()
+          //   router.push('/teacher')
+          //   setTimeout(() => {
+          //     router.go(0)
+          //   }, 10);
+          // }
         }
         else {
           this.$message({
