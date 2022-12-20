@@ -1,5 +1,6 @@
 package cn.itcast.order;
 
+import cn.itcast.feign.clients.MoneyClient;
 import cn.itcast.feign.clients.UserClient;
 import cn.itcast.feign.config.DefaultFeignConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -12,16 +13,14 @@ import org.springframework.web.client.RestTemplate;
 
 @EnableJpaAuditing
 @SpringBootApplication
-@EnableFeignClients(clients = UserClient.class,defaultConfiguration = DefaultFeignConfiguration.class)
+@EnableFeignClients(clients = {MoneyClient.class},defaultConfiguration = DefaultFeignConfiguration.class)
 public class ShopApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ShopApplication.class, args);
     }
 
-    /**
-     * 创建RestTemplate并注入Spring容器
-     */
+
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {

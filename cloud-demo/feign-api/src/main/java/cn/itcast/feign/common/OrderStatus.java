@@ -1,4 +1,4 @@
-package cn.itcast.order.common;
+package cn.itcast.feign.common;
 
 public enum OrderStatus {
     NotPaid,        //未支付

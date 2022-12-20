@@ -2,7 +2,7 @@ package cn.itcast.order.service.impl;
 
 import cn.itcast.order.common.CommentStatus;
 import cn.itcast.order.common.GoodsStatus;
-import cn.itcast.order.common.OrderStatus;
+import cn.itcast.feign.common.OrderStatus;
 import cn.itcast.order.domain.Comment;
 import cn.itcast.order.domain.Goods;
 import cn.itcast.order.domain.Order;
@@ -83,6 +83,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> findOrderByStatus(OrderStatus status) {
+        return orderRepository.findByStatus(status);
+    }
+
+    @Override
     public List<PurchaseRecord> findRecordByOrder(Long orderId) throws Exception {
         Optional<Order> opOrder = orderRepository.findById(orderId);
         if(!opOrder.isPresent()){
@@ -140,5 +145,15 @@ public class OrderServiceImpl implements OrderService {
         comment.setStars(stars);
         comment.setStatus(CommentStatus.Filled);
         commentRepository.save(comment);
+    }
+
+    @Override
+    public Order findOrderByID(Long orderID) throws Exception{
+        Optional<Order> opOrder = orderRepository.findById(orderID);
+        if(!opOrder.isPresent()){
+            throw new Exception("订单号错误");
+        }
+        Order order = opOrder.get();
+        return order;
     }
 }
