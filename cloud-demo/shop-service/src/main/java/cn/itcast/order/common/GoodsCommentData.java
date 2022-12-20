@@ -11,4 +11,9 @@ import lombok.NoArgsConstructor;
 public class GoodsCommentData {
     Comment comment;
     String userAccount;
+
+    public GoodCommentDataForShow forShow(){
+        return new GoodCommentDataForShow(userAccount,comment.getContent(),comment.getStars());
+
+    }
 }

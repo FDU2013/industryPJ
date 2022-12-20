@@ -182,6 +182,7 @@ public class OrderServiceImpl implements OrderService {
         if(records == null) return res;
         for(PurchaseRecord record:records){
             Comment comment = record.getComment();
+            if(comment == null)continue;
             if(comment.getStatus() == CommentStatus.Filled){
                 res.add(new GoodsCommentData(comment, record.getBuyerId()));
             }

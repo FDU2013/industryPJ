@@ -3,7 +3,11 @@ package cn.itcast.user.web;
 
 import cn.itcast.feign.clients.AuthClient;
 import cn.itcast.feign.clients.MoneyClient;
+import cn.itcast.feign.common.MyPage;
+import cn.itcast.feign.common.PageSearchData;
 import cn.itcast.feign.common.Result;
+import cn.itcast.feign.common.UserToSee;
+import cn.itcast.feign.util.MyPageTool;
 import cn.itcast.user.common.AddUserData;
 import cn.itcast.user.domain.User;
 import cn.itcast.user.service.UserService;
@@ -12,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -84,6 +90,22 @@ public class UserController {
             e.printStackTrace();
             return Result.fail(310,e.getMessage());
         }
+    }
+
+    @PostMapping("/getUserPage")
+    public MyPage<UserToSee> getUserPage(@RequestBody PageSearchData pageSearchData) {
+
+        List<User> allUsers = userService.getAllUser();
+        List<UserToSee> userToSees = new ArrayList<>();
+        for (User user : allUsers) {
+            userToSees.add(new UserToSee(
+                    user.getAccount(),
+                    user.getName(),
+                    user.getEmail(),
+                    user.getPhone()
+            ));
+        }
+        return MyPageTool.getPage(userToSees, pageSearchData.getPageSize(), pageSearchData.getPageNum());
     }
 
 }

@@ -77,23 +77,20 @@ public class CommentController {
         }
     }
 
-//    @PostMapping("/getGoodComment")
-//    public Result getGoodComment(@RequestBody String goodID, HttpServletRequest request) {
-//        try {
-//            List<GoodInfoNumData> ret = new ArrayList<>();
-//            List<PurchaseRecord> records = orderService.findRecordByOrder(orderID);
-//            for(PurchaseRecord record : records){
-//                String goodID = record.getGoodsId();
-//                Goods good = goodService.findGoodsById(goodID);
-//                GoodInfoNumData info = GoodInfoNumData.getPair(good,record.getGoodsNum());
-//                info.setPrice(record.getTotalPrice());
-//                ret.add(info);
-//            }
-//            return Result.succ(ret,"获得订单详情成功");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return Result.fail(342,"获取订单详情失败\n"+e.getMessage());
-//        }
-//
-//    }
+    @PostMapping("/getGoodComment")
+    public Result getGoodComment(@RequestBody GoodCommentPage pageSearch, HttpServletRequest request) {
+        try {
+            List<GoodsCommentData>  comments = orderService.getCommentByGoods(pageSearch.getGoodID());
+            List<GoodCommentDataForShow> commentDataForShows = new ArrayList<>();
+            for(GoodsCommentData comment: comments){
+                commentDataForShows.add(comment.forShow());
+            }
+            MyPage<GoodCommentDataForShow> page = MyPageTool.getPage(commentDataForShows, pageSearch.getPageSize(), pageSearch.getPageNum());
+            return Result.succ(page,"获得商品评价");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(342,"获得商品评价失败\n"+e.getMessage());
+        }
+
+    }
 }
