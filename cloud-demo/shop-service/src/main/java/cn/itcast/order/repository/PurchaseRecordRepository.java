@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PurchaseRecordRepository extends JpaRepository<PurchaseRecord, Long> {
+public interface PurchaseRecordRepository extends JpaRepository<PurchaseRecord, Integer> {
     List<PurchaseRecord> findByBuyerId(String buyerId);
     List<PurchaseRecord> findByGoodsId(String goodsId);
 }

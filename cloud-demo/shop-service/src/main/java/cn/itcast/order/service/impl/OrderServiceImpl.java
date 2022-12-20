@@ -133,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void comment(Long recordId, String content, Integer stars) throws Exception {
+    public void comment(Integer recordId, String content, Integer stars) throws Exception {
         Optional<PurchaseRecord> opRecord = purchaseRecordRepository.findById(recordId);
         if(!opRecord.isPresent()){
             throw new Exception("该记录不存在");
@@ -166,9 +166,10 @@ public class OrderServiceImpl implements OrderService {
         if(records == null) return res;
         for(PurchaseRecord record:records){
             Comment comment = record.getComment();
+            if(comment == null)continue;
             if(comment.getStatus() == status){
                 res.add(new UserCommentData(comment, record.getOrder(),
-                        goodsRepository.findByGoodsId(record.getGoodsId())));
+                        goodsRepository.findByGoodsId(record.getGoodsId()),record.getId()));
             }
         }
         return res;
