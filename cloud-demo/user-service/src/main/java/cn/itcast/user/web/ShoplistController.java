@@ -4,7 +4,7 @@ package cn.itcast.user.web;
 import cn.itcast.feign.clients.ShopClient;
 import cn.itcast.feign.common.GoodInfoNumData;
 import cn.itcast.feign.common.Result;
-import cn.itcast.user.common.GoodNumData;
+import cn.itcast.feign.common.GoodNumData;
 import cn.itcast.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

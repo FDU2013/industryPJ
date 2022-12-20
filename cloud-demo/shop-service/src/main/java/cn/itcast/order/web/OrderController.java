@@ -1,12 +1,14 @@
 package cn.itcast.order.web;
 
 
+import cn.itcast.feign.common.IDGoodNumData;
 import cn.itcast.feign.common.Result;
 import cn.itcast.feign.common.UserOrderData;
 import cn.itcast.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,18 @@ public class OrderController {
         }catch (Exception e){
             return null;
         }
+    }
 
+    @PostMapping("/immediateOrder")
+    public List<String> immediateOrder(@RequestBody IDGoodNumData idGoodNumData) {
+        try {
+            HashMap<String, Integer> pairs = new HashMap<>();
+            pairs.put(idGoodNumData.getGoodID(), idGoodNumData.getNum());
+            List<String> SoldOutGood = orderService.generateOrder(idGoodNumData.getID(), pairs);
+            return SoldOutGood;
+        }catch (Exception e){
+            return null;
+        }
     }
 
     @PostMapping("/searchUndeliverOrder")

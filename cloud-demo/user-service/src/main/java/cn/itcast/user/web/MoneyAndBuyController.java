@@ -3,6 +3,8 @@ package cn.itcast.user.web;
 
 import cn.itcast.feign.clients.MoneyClient;
 import cn.itcast.feign.clients.ShopClient;
+import cn.itcast.feign.common.GoodNumData;
+import cn.itcast.feign.common.IDGoodNumData;
 import cn.itcast.feign.common.Result;
 import cn.itcast.feign.common.UserOrderData;
 import cn.itcast.user.service.UserService;
@@ -28,9 +30,20 @@ public class MoneyAndBuyController {
     private UserService userService;
 
     @PostMapping("/buy")
-    public Result buy(HttpServletRequest request) {
-        //TODO 参数还需要一个结构体
-        return Result.fail(300,"300");
+    public Result buy(@RequestBody GoodNumData goodNumData, HttpServletRequest request) {
+        String ID = request.getHeader("ID");
+        try{
+            List<String> SoldOutGoods = shopClient.immediateOrder(new IDGoodNumData(ID,goodNumData.getGoodID(), goodNumData.getNum()));
+            if(SoldOutGoods==null)throw new Exception("购物车中全为下架商品!\n已自动清空购物车");
+            if(SoldOutGoods.isEmpty()){
+                return  Result.succ(ID,"生成订单成功");
+            }
+            return new Result(201,"部分商品下架，已自动删除",SoldOutGoods);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(310,e.getMessage());
+        }
     }
 
     @PostMapping("/buyShoplist")
