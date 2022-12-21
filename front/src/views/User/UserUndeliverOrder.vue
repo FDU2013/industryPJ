@@ -14,11 +14,6 @@
             <template #default="scope">
               <el-button type="text" size="small" @click="handlePay(scope.row.id)">支付</el-button>
               <el-button type="text" size="small" @click="viewDetails(scope.row.id)">查看订单详情</el-button>
-<!--              <el-popconfirm title="确认删除?" @confirm="handleDelete(scope.row.name)">-->
-<!--                <template #reference>-->
-<!--                  <el-button type="text">删除</el-button>-->
-<!--                </template>-->
-<!--              </el-popconfirm>-->
             </template>
           </el-table-column>
         </el-table>
@@ -32,33 +27,6 @@
             @current-change="handleCurrentChange"
         />
       </div>
-    </div>
-    <div>
-      <el-dialog v-model="dialogVisible" title="确认支付信息" width="50%">
-        <el-form :model="payInfo" label-width="">
-          <el-form-item label="备注">
-            <el-input v-model="payInfo.notes" />
-          </el-form-item>
-
-          <el-form-item label="地址选择" prop="">
-            <el-select v-model="payInfo.address" class="m-2" placeholder="请选择" size="large" style="width: 100%">
-              <el-option
-                  v-for="item in addressOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-              />
-            </el-select>
-          </el-form-item>
-
-          <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="save">确认</el-button>
-      </span>
-        </el-form>
-        <template #footer>
-        </template>
-      </el-dialog>
     </div>
 
     <div>
@@ -118,28 +86,16 @@ export default {
         notes:'',
         address:''
       },
-      addressOptions:[],
       tableData2:[]
     }
   },
   mounted() {
     this.load()
-    this.getAddressOption()
   },
   methods:{
-    getAddressOption: function () {
-      request.post("/user/allAddressString").then(res => {
-        let that = this
-        if (!res.data) return
-        res.data.data.forEach (function (item) {
-          let option = {value: item, label: item}
-          that.addressOptions.push(option)
-        })
-      })
-    },
     load(){
       setTimeout(() => {
-        request.post("user/getToPaidOrder",{
+        request.post("user/getUndeliverOrder",{
               pageNum: this.currentPage,
               pageSize: this.pageSize,
             }
@@ -156,29 +112,6 @@ export default {
           }
         })
       }, 500)
-    },
-    handlePay:function(id){
-      this.dialogVisible = true
-      this.payInfo = {}
-      this.payInfo.orderID = id
-    },
-    save:function (){
-      request.post("/user/pay", this.payInfo).then(res => {
-        if(res.data.code!==200) {
-          this.$message({
-            type:"error",
-            message: res.data.msg
-          })
-        }
-        if(res.data.code===200) {
-          this.$message({
-            type:"success",
-            message: res.data.msg
-          })
-        }
-        this.load() // 刷新表格的数据
-        this.dialogVisible = false  // 关闭弹窗
-      })
     },
     handleCurrentChange:function (pageNum){
       this.currentPage = pageNum

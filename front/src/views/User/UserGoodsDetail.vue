@@ -113,7 +113,7 @@ export default {
     },
     handleBuy:function (){
       request.post("/user/buy",{
-        goodId:this.goodsId,
+        goodID:this.goodsId,
         num:this.num
       }).then(res=>{
         if(res.data.code===200){

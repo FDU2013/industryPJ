@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "AdminOrderSend"
+  name: "UserAlreadyComment"
 }
 </script>
 
