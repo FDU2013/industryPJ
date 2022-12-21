@@ -2,15 +2,13 @@
   <div>
     <div>
       <div class="add" style="margin: 10px 0">
-        <div>
-          <span>
+        <div style="display: flex;flex-direction: row;width: 100%">
+
+          <div>
             <el-button size="large" @click="add" type="primary">新增</el-button>
-          </span>
-          <span>
-            <div>
-              <el-input clearable v-model="search" placeholder="请输入关键字" style="width:50%;margin-left: 100px"></el-input>
-              <el-button type="primary" style="margin-left: 5px" @click="load">搜索</el-button>
-            </div>
+          </div>
+
+          <div style="width: 100%">
 
             <div style="margin-left: 10%">
               <el-checkbox-group v-model="mediumList">
@@ -23,7 +21,13 @@
                 <el-checkbox v-for="item in tagOptions" :label="item.label"></el-checkbox>
               </el-checkbox-group>
             </div>
-          </span>
+
+            <div>
+              <el-input clearable v-model="search" placeholder="请输入关键字" style="width:50%;margin-left: 100px"></el-input>
+              <el-button type="primary" style="margin-left: 5px" @click="load">搜索</el-button>
+            </div>
+
+          </div>
         </div>
 
       </div>
@@ -40,7 +44,7 @@
             <template #default="scope">
               <div class="demo-image__preview">
                 <el-image
-                    style="width: 100px; height: 100px;"
+                    style="width: 60px; height: 60px;"
                     :src="scope.row.imageUrl"
                     :zoom-rate="1.2"
                     :preview-src-list="[scope.row.imageUrl]"

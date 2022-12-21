@@ -46,6 +46,12 @@ import AdminGoodsMedium from "@/views/Admin/AdminGoodsMedium";
 import AdminGoodsForSale from "@/views/Admin/AdminGoodsForSale";
 import AdminGoodsSoldOut from "@/views/Admin/AdminGoodsSoldOut";
 import UserMain from "@/views/User/UserMain";
+import UserAddress from "@/views/User/UserAddress";
+import userBuyList from "@/views/User/UserBuyList";
+import UserBuyList from "@/views/User/UserBuyList";
+import UserOrder from "@/views/User/UserOrder";
+import UserShop from "@/views/User/UserShop";
+import UserGoodsDetail from "@/views/User/UserGoodsDetail";
 
 export const routes = [
     {
@@ -125,10 +131,30 @@ export const user_routes =
         component: UserMain,
         children: [
             {
-                path:'goodsforsale',
-                bane:'GoodsForSale',
-                component:AdminGoodsForSale
+                path:'address',
+                bane:'Address',
+                component:UserAddress
             },
+            {
+                path:'buylist',
+                bane:'BuyList',
+                component:UserBuyList
+            },
+            {
+                path:'order',
+                bane:'Order',
+                component:UserOrder
+            },
+            {
+                path:'shop',
+                bane:'Shop',
+                component:UserShop
+            },
+            {
+                path: 'goodsdetail',
+                bane: 'GoodsDetail',
+                component: UserGoodsDetail
+            }
         ]
     }
 export const teacher_routes =
