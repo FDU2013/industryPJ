@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUser() throws Exception {
+    public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
@@ -170,7 +170,11 @@ public class UserServiceImpl implements UserService {
         if(user == null){
             throw new Exception("用户不存在");
         }
-        shoppingCartRepository.deleteByUserAndGoodsId(user, goodsId);
+        ShoppingCart cart = shoppingCartRepository.findByUserAndGoodsId(user, goodsId);
+        if(cart == null){
+            throw new Exception("该商品不在购物车中");
+        }
+        shoppingCartRepository.delete(cart);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
     void addUser(User user) throws Exception;
     User getUserByAccount(String account) throws Exception;
-    List<User> getAllUser() throws Exception;
+    List<User> getAllUser();
     void updateUserInfo(User user) throws Exception;
     void addAddress(String account, Address address) throws Exception;
     void deleteAddress(String account, Integer addressId) throws Exception;

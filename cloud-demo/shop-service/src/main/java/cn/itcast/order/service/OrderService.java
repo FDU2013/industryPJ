@@ -19,7 +19,7 @@ public interface OrderService {
     List<PurchaseRecord> findRecordByOrder(Long orderId) throws Exception;
     void deliverGoodsOfOrder(Long orderId, String waybillNum) throws Exception;
     void confirmReceipt(Long orderId) throws Exception;
-    void comment(Long recordId, String content, Integer stars) throws Exception;
+    void comment(Integer recordId, String content, Integer stars) throws Exception;
     Order findOrderByID(Long orderID) throws Exception;
     List<UserCommentData> getCommentByUserAndStatus(String userId, CommentStatus status);
     List<GoodsCommentData> getCommentByGoods(String goodsId);

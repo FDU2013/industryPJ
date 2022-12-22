@@ -2,15 +2,13 @@
   <div>
     <div>
       <div class="add" style="margin: 10px 0">
-        <div>
-          <span>
+        <div style="display: flex;flex-direction: row;width: 100%">
+
+          <div>
             <el-button size="large" @click="add" type="primary">新增</el-button>
-          </span>
-          <span>
-            <div>
-              <el-input clearable v-model="search" placeholder="请输入关键字" style="width:50%;margin-left: 100px"></el-input>
-              <el-button type="primary" style="margin-left: 5px" @click="load">搜索</el-button>
-            </div>
+          </div>
+
+          <div style="width: 100%">
 
             <div style="margin-left: 10%">
               <el-checkbox-group v-model="mediumList">
@@ -23,7 +21,13 @@
                 <el-checkbox v-for="item in tagOptions" :label="item.label"></el-checkbox>
               </el-checkbox-group>
             </div>
-          </span>
+
+            <div>
+              <el-input clearable v-model="search" placeholder="请输入关键字" style="width:50%;margin-left: 100px"></el-input>
+              <el-button type="primary" style="margin-left: 5px" @click="load">搜索</el-button>
+            </div>
+
+          </div>
         </div>
 
       </div>
@@ -35,7 +39,24 @@
           <el-table-column prop="publisher" label="出版社" min-width="10%"/>
           <el-table-column prop="medium" label="媒介" min-width="10%"/>
           <el-table-column prop="tag" label="标签" min-width="10%"/>
-          <el-table-column prop="imageUrl" label="图片" min-width="10%"/>
+
+          <el-table-column  label="商品图片" prop="imageUrl" min-width="15%">
+            <template #default="scope">
+              <div class="demo-image__preview">
+                <el-image
+                    style="width: 60px; height: 60px;"
+                    :src="scope.row.imageUrl"
+                    :zoom-rate="1.2"
+                    :preview-src-list="[scope.row.imageUrl]"
+                    hide-on-click-modal="true"
+                    fit="cover"
+                    preview-teleported
+                    z-index="10000"
+                />
+              </div>
+            </template>
+          </el-table-column>
+
           <el-table-column prop="details" label="细节" min-width="10%"/>
           <el-table-column prop="price" label="价格" min-width="10%"/>
           <el-table-column fixed="right" label="操作" min-width="10%">

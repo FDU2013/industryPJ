@@ -1,6 +1,10 @@
 package cn.itcast.user.web;
 
+import cn.itcast.feign.clients.UserClient;
+import cn.itcast.feign.common.MyPage;
+import cn.itcast.feign.common.PageSearchData;
 import cn.itcast.feign.common.Result;
+import cn.itcast.feign.common.UserToSee;
 import cn.itcast.user.service.UserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     @Autowired
-    private UserManageService userManageService;
+    private UserClient userClient;
 
 
 
-    @PostMapping("/updateInfo")
-    public Result queryById(@PathVariable("id") Long id) {
-
-        return Result.fail(300,"300");
+    @PostMapping("/getUserPage")
+    public Result queryById(@RequestBody PageSearchData pageSearchData) {
+        MyPage<UserToSee> page = userClient.getUserPage(pageSearchData);
+        return Result.succ(page);
     }
+
 }

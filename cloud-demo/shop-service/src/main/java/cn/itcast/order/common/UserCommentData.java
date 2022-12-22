@@ -14,4 +14,17 @@ public class UserCommentData {
     Comment comment;
     Order order;
     Goods goods;
+    Integer purchaseID;
+
+    public UserCommentDataForShow forShow(){
+        return new UserCommentDataForShow(
+                this.order.getId(),
+                this.purchaseID,
+                this.goods.getGoodsId(),
+                this.goods.getName(),
+                this.goods.getImageUrl(),
+                this.comment.getContent(),
+                this.comment.getStars()
+        );
+    }
 }

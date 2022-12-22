@@ -72,6 +72,18 @@ public class ShoplistController {
         }
     }
 
+    @PostMapping("/removeFromShoplist")
+    public Result removeFromShoplist(@RequestBody String goodID,HttpServletRequest request) {
+        String ID = request.getHeader("ID");
+        try{
+            userService.deleteGoodsOfCart(ID,goodID);
+            return Result.succ(null,"删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.fail(330,"删除失败\n"+e.getMessage());
+        }
+    }
+
     @PostMapping("/clearShoplist")
     public Result clearShoplist(HttpServletRequest request) {
 
