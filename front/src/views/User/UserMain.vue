@@ -1,5 +1,15 @@
 <template>
-<UserHeader/>
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <UserHeader/>
+      </el-header>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </div>
+
 </template>
 
 <script>

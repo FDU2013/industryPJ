@@ -3,15 +3,16 @@
     <div>
       <div>
         <el-table :data="tableData" style="width: 80%;margin:0 auto" border stripe>
-          <el-table-column prop="id" label="订单id" min-width="10%"/>
-          <el-table-column prop="buyerId" label="购买人id" min-width="10%"/>
-          <el-table-column prop="totalPrice" label="总价" min-width="10%" />
-          <el-table-column prop="status" label="状态" min-width="10%" />
-          <el-table-column prop="address" label="地址" min-width="10%"/>
-          <el-table-column prop="notes" label="备注" min-width="10%"/>
-          <el-table-column prop="waybillNum" label="运单号" min-width="10%" />
-          <el-table-column fixed="right" label="操作" min-width="10%">
+          <el-table-column prop="id" label="订单id" min-width="20%"/>
+          <el-table-column prop="buyerId" label="购买人id" min-width="20%" v-if="false"/>
+          <el-table-column prop="totalPrice" label="总价" min-width="20%" />
+          <el-table-column prop="status" label="状态" min-width="20%" />
+          <el-table-column prop="address" label="地址" min-width="20%" v-if="false"/>
+          <el-table-column prop="notes" label="备注" min-width="20%" v-if="false"/>
+          <el-table-column prop="waybillNum" label="运单号" min-width="20%" v-if="false"/>
+          <el-table-column fixed="right" label="操作" min-width="20%">
             <template #default="scope">
+              <el-button type="text" size="small" @click="handlePay(scope.row.id)">支付</el-button>
               <el-button type="text" size="small" @click="viewDetails(scope.row.id)">查看订单详情</el-button>
             </template>
           </el-table-column>
@@ -26,33 +27,6 @@
             @current-change="handleCurrentChange"
         />
       </div>
-    </div>
-    <div>
-      <el-dialog v-model="dialogVisible" title="确认支付信息" width="50%">
-        <el-form :model="payInfo" label-width="">
-          <el-form-item label="备注">
-            <el-input v-model="payInfo.notes" />
-          </el-form-item>
-
-          <el-form-item label="地址选择" prop="">
-            <el-select v-model="payInfo.address" class="m-2" placeholder="请选择" size="large" style="width: 100%">
-              <el-option
-                  v-for="item in addressOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-              />
-            </el-select>
-          </el-form-item>
-
-          <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="save">确认</el-button>
-      </span>
-        </el-form>
-        <template #footer>
-        </template>
-      </el-dialog>
     </div>
 
     <div>
@@ -96,7 +70,7 @@
 import request from "@/utils/request";
 
 export default {
-  name: "AdminOrderFinished",
+  name: "UserNotPaidOrder",
   data(){
     return{
       total:0,
@@ -107,6 +81,11 @@ export default {
       dialogVisible2:false,
       introduction:'',
       tableData:[],
+      payInfo:{
+        orderID:'',
+        notes:'',
+        address:''
+      },
       tableData2:[]
     }
   },
@@ -116,7 +95,7 @@ export default {
   methods:{
     load(){
       setTimeout(() => {
-        request.post("shop/adminSearchFinishOrder",{
+        request.post("user/getUndeliverOrder",{
               pageNum: this.currentPage,
               pageSize: this.pageSize,
             }
@@ -143,22 +122,6 @@ export default {
         this.tableData2 = res.data.data
       })
       this.dialogVisible2 = true
-    },
-    receive:function (id){
-      request.post("user/confirmReceive",id).then(res=>{
-        if(res.data.code === 200){
-          this.$message({
-            type:"success",
-            message:res.data.msg
-          })
-        }
-        else{
-          this.$message({
-            type:"error",
-            message:res.data.msg
-          })
-        }
-      })
     }
   }
 }

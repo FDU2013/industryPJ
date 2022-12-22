@@ -1,10 +1,10 @@
 <template>
-
+订单
 </template>
 
 <script>
 export default {
-  name: "AdminOrderReceive"
+  name: "UserOrder"
 }
 </script>
 

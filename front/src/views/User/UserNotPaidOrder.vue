@@ -3,16 +3,22 @@
     <div>
       <div>
         <el-table :data="tableData" style="width: 80%;margin:0 auto" border stripe>
-          <el-table-column prop="id" label="订单id" min-width="10%"/>
-          <el-table-column prop="buyerId" label="购买人id" min-width="10%"/>
-          <el-table-column prop="totalPrice" label="总价" min-width="10%" />
-          <el-table-column prop="status" label="状态" min-width="10%" />
-          <el-table-column prop="address" label="地址" min-width="10%"/>
-          <el-table-column prop="notes" label="备注" min-width="10%"/>
-          <el-table-column prop="waybillNum" label="运单号" min-width="10%" />
-          <el-table-column fixed="right" label="操作" min-width="10%">
+          <el-table-column prop="id" label="订单id" min-width="20%"/>
+          <el-table-column prop="buyerId" label="购买人id" min-width="20%" v-if="false"/>
+          <el-table-column prop="totalPrice" label="总价" min-width="20%" />
+          <el-table-column prop="status" label="状态" min-width="20%" />
+          <el-table-column prop="address" label="地址" min-width="20%" v-if="false"/>
+          <el-table-column prop="notes" label="备注" min-width="20%" v-if="false"/>
+          <el-table-column prop="waybillNum" label="运单号" min-width="20%" v-if="false"/>
+          <el-table-column fixed="right" label="操作" min-width="20%">
             <template #default="scope">
+              <el-button type="text" size="small" @click="handlePay(scope.row.id)">支付</el-button>
               <el-button type="text" size="small" @click="viewDetails(scope.row.id)">查看订单详情</el-button>
+<!--              <el-popconfirm title="确认删除?" @confirm="handleDelete(scope.row.name)">-->
+<!--                <template #reference>-->
+<!--                  <el-button type="text">删除</el-button>-->
+<!--                </template>-->
+<!--              </el-popconfirm>-->
             </template>
           </el-table-column>
         </el-table>
@@ -96,7 +102,7 @@
 import request from "@/utils/request";
 
 export default {
-  name: "AdminOrderFinished",
+  name: "UserNotPaidOrder",
   data(){
     return{
       total:0,
@@ -107,16 +113,33 @@ export default {
       dialogVisible2:false,
       introduction:'',
       tableData:[],
+      payInfo:{
+        orderID:'',
+        notes:'',
+        address:''
+      },
+      addressOptions:[],
       tableData2:[]
     }
   },
   mounted() {
     this.load()
+    this.getAddressOption()
   },
   methods:{
+    getAddressOption: function () {
+      request.post("/user/allAddressString").then(res => {
+        let that = this
+        if (!res.data) return
+        res.data.data.forEach (function (item) {
+          let option = {value: item, label: item}
+          that.addressOptions.push(option)
+        })
+      })
+    },
     load(){
       setTimeout(() => {
-        request.post("shop/adminSearchFinishOrder",{
+        request.post("user/getToPaidOrder",{
               pageNum: this.currentPage,
               pageSize: this.pageSize,
             }
@@ -134,6 +157,29 @@ export default {
         })
       }, 500)
     },
+    handlePay:function(id){
+      this.dialogVisible = true
+      this.payInfo = {}
+      this.payInfo.orderID = id
+    },
+    save:function (){
+      request.post("/user/pay", this.payInfo).then(res => {
+        if(res.data.code!==200) {
+          this.$message({
+            type:"error",
+            message: res.data.msg
+          })
+        }
+        if(res.data.code===200) {
+          this.$message({
+            type:"success",
+            message: res.data.msg
+          })
+        }
+        this.load() // 刷新表格的数据
+        this.dialogVisible = false  // 关闭弹窗
+      })
+    },
     handleCurrentChange:function (pageNum){
       this.currentPage = pageNum
       this.load()
@@ -143,22 +189,6 @@ export default {
         this.tableData2 = res.data.data
       })
       this.dialogVisible2 = true
-    },
-    receive:function (id){
-      request.post("user/confirmReceive",id).then(res=>{
-        if(res.data.code === 200){
-          this.$message({
-            type:"success",
-            message:res.data.msg
-          })
-        }
-        else{
-          this.$message({
-            type:"error",
-            message:res.data.msg
-          })
-        }
-      })
     }
   }
 }

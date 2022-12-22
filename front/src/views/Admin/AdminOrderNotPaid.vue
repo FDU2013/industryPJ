@@ -9,7 +9,7 @@
           <el-table-column prop="status" label="状态" min-width="10%" />
           <el-table-column prop="address" label="地址" min-width="10%"/>
           <el-table-column prop="notes" label="备注" min-width="10%"/>
-          <el-table-column prop="waybillNum" label="运单号" min-width="10%" />
+          <el-table-column prop="waybillNum" label="运单号" min-width="10%"/>
           <el-table-column fixed="right" label="操作" min-width="10%">
             <template #default="scope">
               <el-button type="text" size="small" @click="viewDetails(scope.row.id)">查看订单详情</el-button>
@@ -96,7 +96,7 @@
 import request from "@/utils/request";
 
 export default {
-  name: "AdminOrderFinished",
+  name: "UserNotPaidOrder",
   data(){
     return{
       total:0,
@@ -107,16 +107,33 @@ export default {
       dialogVisible2:false,
       introduction:'',
       tableData:[],
+      payInfo:{
+        orderID:'',
+        notes:'',
+        address:''
+      },
+      addressOptions:[],
       tableData2:[]
     }
   },
   mounted() {
     this.load()
+    this.getAddressOption()
   },
   methods:{
+    getAddressOption: function () {
+      request.post("/user/allAddressString").then(res => {
+        let that = this
+        if (!res.data) return
+        res.data.data.forEach (function (item) {
+          let option = {value: item, label: item}
+          that.addressOptions.push(option)
+        })
+      })
+    },
     load(){
       setTimeout(() => {
-        request.post("shop/adminSearchFinishOrder",{
+        request.post("shop/adminSearchToPaidOrder",{
               pageNum: this.currentPage,
               pageSize: this.pageSize,
             }
@@ -143,22 +160,6 @@ export default {
         this.tableData2 = res.data.data
       })
       this.dialogVisible2 = true
-    },
-    receive:function (id){
-      request.post("user/confirmReceive",id).then(res=>{
-        if(res.data.code === 200){
-          this.$message({
-            type:"success",
-            message:res.data.msg
-          })
-        }
-        else{
-          this.$message({
-            type:"error",
-            message:res.data.msg
-          })
-        }
-      })
     }
   }
 }

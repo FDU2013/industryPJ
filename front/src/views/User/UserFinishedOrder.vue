@@ -4,7 +4,7 @@
       <div>
         <el-table :data="tableData" style="width: 80%;margin:0 auto" border stripe>
           <el-table-column prop="id" label="订单id" min-width="10%"/>
-          <el-table-column prop="buyerId" label="购买人id" min-width="10%"/>
+          <el-table-column prop="buyerId" label="购买人id" min-width="10%" v-if="false"/>
           <el-table-column prop="totalPrice" label="总价" min-width="10%" />
           <el-table-column prop="status" label="状态" min-width="10%" />
           <el-table-column prop="address" label="地址" min-width="10%"/>
@@ -96,7 +96,7 @@
 import request from "@/utils/request";
 
 export default {
-  name: "AdminOrderFinished",
+  name: "UserFinishedOrder",
   data(){
     return{
       total:0,
@@ -116,7 +116,7 @@ export default {
   methods:{
     load(){
       setTimeout(() => {
-        request.post("shop/adminSearchFinishOrder",{
+        request.post("user/getFinishedOrder",{
               pageNum: this.currentPage,
               pageSize: this.pageSize,
             }

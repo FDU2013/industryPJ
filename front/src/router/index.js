@@ -39,13 +39,26 @@ import AdminGoodsInfo from "@/views/Admin/AdminGoodsForSale";
 import AdminGoodsMedia from "@/views/Admin/AdminGoodsMedium";
 import AdminGoodsPublisher from "@/views/Admin/AdminGoodsPublisher";
 import AdminGoodsTag from "@/views/Admin/AdminGoodsTag";
-import AdminOrderSend from "@/views/Admin/AdminOrderSend";
-import AdminOrderReceive from "@/views/Admin/AdminOrderReceive";
-import AdminOrderFinished from "@/views/Admin/AdminOrderFinished";
 import AdminGoodsMedium from "@/views/Admin/AdminGoodsMedium";
 import AdminGoodsForSale from "@/views/Admin/AdminGoodsForSale";
 import AdminGoodsSoldOut from "@/views/Admin/AdminGoodsSoldOut";
 import UserMain from "@/views/User/UserMain";
+import UserAddress from "@/views/User/UserAddress";
+import userBuyList from "@/views/User/UserBuyList";
+import UserBuyList from "@/views/User/UserBuyList";
+import UserOrder from "@/views/User/UserOrder";
+import UserShop from "@/views/User/UserShop";
+import UserGoodsDetail from "@/views/User/UserGoodsDetail";
+import UserNotPaidOrder from "@/views/User/UserNotPaidOrder";
+import UserUndeliverOrder from "@/views/User/UserUndeliverOrder";
+import UserNotReceiveOrder from "@/views/User/UserNotReceiveOrder";
+import UserFinishedOrder from "@/views/User/UserFinishedOrder";
+import AdminOrderNotPaid from "@/views/Admin/AdminOrderNotPaid";
+import AdminOrderUndeliver from "@/views/Admin/AdminOrderUndeliver";
+import AdminOrderNotReceive from "@/views/Admin/AdminOrderNotReceive";
+import AdminOrderFinished from "@/views/Admin/AdminOrderFinished";
+import UserNeedComment from "@/views/User/UserNeedComment";
+import UserAlreadyComment from "@/views/User/UserAlreadyComment";
 
 export const routes = [
     {
@@ -102,19 +115,24 @@ export const admin_routes =
                 component:AdminGoodsTag
             },
             {
-                path:'ordersend',
-                bane:'OrderSend',
-                component:AdminOrderSend
+                path: 'ordernotpaid',
+                bane: 'OrderNotPaid',
+                component: AdminOrderNotPaid
             },
             {
-                path:'orderreceive',
-                bane:'OrderReceive',
-                component:AdminOrderReceive
+                path: 'orderundeliver',
+                bane: 'OrderUndeliver',
+                component: AdminOrderUndeliver
             },
             {
-                path:'orderfinished',
-                bane:'OrderFinished',
-                component:AdminOrderFinished
+                path: 'ordernotreceive',
+                bane: 'OrderNotReceive',
+                component: AdminOrderNotReceive
+            },
+            {
+                path: 'orderfinished',
+                bane: 'OrderFinished',
+                component: AdminOrderFinished
             }
         ]
     }
@@ -125,10 +143,60 @@ export const user_routes =
         component: UserMain,
         children: [
             {
-                path:'goodsforsale',
-                bane:'GoodsForSale',
-                component:AdminGoodsForSale
+                path:'address',
+                bane:'Address',
+                component:UserAddress
             },
+            {
+                path:'buylist',
+                bane:'BuyList',
+                component:UserBuyList
+            },
+            {
+                path:'order',
+                bane:'Order',
+                component:UserOrder
+            },
+            {
+                path:'shop',
+                bane:'Shop',
+                component:UserShop
+            },
+            {
+                path: 'goodsdetail',
+                bane: 'GoodsDetail',
+                component: UserGoodsDetail
+            },
+            {
+                path: 'notpaidorder',
+                bane: 'NotPaidOrder',
+                component: UserNotPaidOrder
+            },
+            {
+                path: 'undeliverorder',
+                bane: 'UndeliverOrder',
+                component: UserUndeliverOrder
+            },
+            {
+                path: 'notreceiveorder',
+                bane: 'NotReceiverOrder',
+                component: UserNotReceiveOrder
+            },
+            {
+                path: 'finishedorder',
+                bane: 'FinishedOrder',
+                component: UserFinishedOrder
+            },
+            {
+                path: 'needcomment',
+                bane: 'NeedComment',
+                component: UserNeedComment
+            },
+            {
+                path: 'alreadycomment',
+                bane:'AlreadyComment',
+                component: UserAlreadyComment
+            }
         ]
     }
 export const teacher_routes =
