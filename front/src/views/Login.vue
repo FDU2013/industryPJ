@@ -156,7 +156,7 @@ body{
   height: 10%;
 }
 .login-main{
-  background: url("https://img1.360buyimg.com/pop/jfs/t1/220175/1/22256/99210/63984e63E5aebe5b3/c012427d2b1cb652.jpg")
+  background: url("../assets/img_3.png")
   0px 0px no-repeat;
   background-size: 100% 100%;
   background-color: #003A12;
