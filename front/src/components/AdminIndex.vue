@@ -45,6 +45,17 @@
           </el-menu-item-group>
         </el-sub-menu>
 
+        <el-sub-menu index="3">
+          <template #title>
+            <span>用户管理</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="3-1">
+              <router-link to="/admin/userinfo">查看用户信息</router-link>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+
       </el-menu>
     </el-col>
   </el-row>

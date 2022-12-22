@@ -12,7 +12,6 @@
           <el-table-column prop="waybillNum" label="运单号" min-width="20%" v-if="false"/>
           <el-table-column fixed="right" label="操作" min-width="20%">
             <template #default="scope">
-              <el-button type="text" size="small" @click="handlePay(scope.row.id)">支付</el-button>
               <el-button type="text" size="small" @click="viewDetails(scope.row.id)">查看订单详情</el-button>
             </template>
           </el-table-column>
