@@ -27,7 +27,9 @@ public class Goods {
     private String medium;
     @Column(name = "tag")
     private String tag;
-    @Column(name = "image_url")
+
+    @Lob
+    @Column(name = "image_url", columnDefinition="TEXT")
     private String imageUrl;
     @Column(name = "details")
     private String details;

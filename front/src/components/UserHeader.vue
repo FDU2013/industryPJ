@@ -28,7 +28,7 @@
        </el-sub-menu>
      </el-menu>
    </div>
-   <div style="margin:20px 0 0px 45%">
+   <div style="margin:20px 0 0px 10%;">
      <UserInfos/>
    </div>
  </div>
@@ -36,9 +36,10 @@
 
 <script>
 import UserInfos from "@/components/UserInfos";
+import UserInfo from "@/components/UserInfo";
 export default {
   name: "UserHeader",
-  components: {UserInfos},
+  components: {UserInfo, UserInfos},
   props:['userinfo']
 }
 </script>

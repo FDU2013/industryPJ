@@ -59,6 +59,8 @@ import AdminOrderNotReceive from "@/views/Admin/AdminOrderNotReceive";
 import AdminOrderFinished from "@/views/Admin/AdminOrderFinished";
 import UserNeedComment from "@/views/User/UserNeedComment";
 import UserAlreadyComment from "@/views/User/UserAlreadyComment";
+import AdminUserInfo from "@/views/Admin/AdminUserInfo";
+import UserCenter from "@/views/User/UserCenter";
 
 export const routes = [
     {
@@ -133,6 +135,11 @@ export const admin_routes =
                 path: 'orderfinished',
                 bane: 'OrderFinished',
                 component: AdminOrderFinished
+            },
+            {
+                path: 'userinfo',
+                bane: 'UserInfo',
+                component: AdminUserInfo
             }
         ]
     }
@@ -141,6 +148,7 @@ export const user_routes =
         path: '/user',
         name: 'User',
         component: UserMain,
+        redirect:'/user/shop',
         children: [
             {
                 path:'address',
@@ -196,6 +204,11 @@ export const user_routes =
                 path: 'alreadycomment',
                 bane:'AlreadyComment',
                 component: UserAlreadyComment
+            },
+            {
+                path: 'usercenter',
+                bane: 'UserCenter',
+                component: UserCenter
             }
         ]
     }
