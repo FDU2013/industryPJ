@@ -12,7 +12,7 @@
       <el-form-item label="请输入密码">
         <el-input v-model="newUser.password"></el-input>
       </el-form-item>
-      <el-form-item label="请输入名字">
+      <el-form-item label="请输入昵称">
         <el-input v-model="newUser.name"></el-input>
       </el-form-item>
       <el-form-item label="请输入邮箱">
@@ -57,12 +57,12 @@ export default {
             type: "success",
             message: res.data.msg
           })
+          this.$router.replace('/login')
         } else {
           this.$message({
             type: "error",
             message: res.data.msg
           })
-          this.$router.replace('/login')
         }
       })
     },

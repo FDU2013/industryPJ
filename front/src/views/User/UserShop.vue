@@ -7,12 +7,14 @@
           <div style="width: 100%;margin: 0 auto">
 
             <div style="margin-left: 10%">
+              媒介选择：
               <el-checkbox-group v-model="mediumList">
                 <el-checkbox v-for="item in mediumOptions" :label="item.label"></el-checkbox>
               </el-checkbox-group>
             </div>
 
             <div style="margin-left: 10%">
+              标签选择：
               <el-checkbox-group v-model="tagList">
                 <el-checkbox v-for="item in tagOptions" :label="item.label"></el-checkbox>
               </el-checkbox-group>
