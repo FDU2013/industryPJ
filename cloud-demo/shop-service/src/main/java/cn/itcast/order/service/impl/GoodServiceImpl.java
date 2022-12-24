@@ -123,8 +123,9 @@ public class GoodServiceImpl implements GoodService {
         }
         List<Goods> res = new ArrayList<>();
         for(Goods goods : temp){
-            String aim = goods.getName();
-            if(aim.contains(search)) res.add(goods);
+            if(goods.getName().contains(search)) res.add(goods);
+            else if(goods.getAuthor().contains(search)) res.add(goods);
+            else if(goods.getPublisher().contains(search)) res.add(goods);
         }
         return res;
     }
